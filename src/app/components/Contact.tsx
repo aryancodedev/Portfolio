@@ -17,7 +17,7 @@ export function Contact() {
     {
       name: 'GitHub',
       icon: <Github className="w-6 h-6" />,
-      url: 'https://github.com/1aryan23',
+      url: 'https://github.com/aryancodedev',
       color: 'from-gray-500 to-gray-700',
       hoverColor: 'rgba(156, 163, 175, 0.2)'
     },
