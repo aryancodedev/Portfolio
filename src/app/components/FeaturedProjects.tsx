@@ -30,7 +30,7 @@ export function FeaturedProjects() {
       tags: ['Next.js', 'GSAP', 'WebGL', 'Creative Tech'],
       gradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(147, 51, 234, 0.4) 100%)',
       icon: <Palette className="w-10 h-10 text-purple-400" />,
-      link: 'https://github.com/1aryan23'
+      link: 'https://nain-aur-naqsh.vercel.app/'
     },
     {
       title: 'Prathmikta',
