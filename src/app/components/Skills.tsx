@@ -74,20 +74,20 @@ export function Skills() {
         {/* Header */}
         <motion.div
           className="mb-16 sm:mb-24 text-center px-4"
-          initial={{ opacity: 0, y: 50 }}
+          initial={isMobile ? { opacity: 0, y: 50 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1 }}
+          viewport={{ once: true, margin: isMobile ? "-50px" : "0px 0px -20px 0px" }}
+          transition={isMobile ? { duration: 1 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <motion.div
             className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-6 sm:mb-8 backdrop-blur-xl border border-emerald-500/20"
             style={{
               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)',
             }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={isMobile ? { opacity: 0, scale: 0.5 } : { opacity: 0, scale: 0.96, y: 10 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
+            transition={isMobile ? { duration: 0.6, type: "spring", stiffness: 200 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-emerald-200 tracking-wider uppercase text-[0.7rem] sm:text-[0.75rem]" style={{ letterSpacing: '0.15em' }}>
@@ -106,10 +106,10 @@ export function Skills() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}
-            initial={{ opacity: 0, rotateX: 45 }}
-            whileInView={{ opacity: 1, rotateX: 0 }}
+            initial={isMobile ? { opacity: 0, rotateX: 45 } : { opacity: 0, y: 20, scale: 0.98 }}
+            whileInView={isMobile ? { opacity: 1, rotateX: 0 } : { opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={isMobile ? { duration: 0.8, delay: 0.2 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             CAPABILITIES
           </motion.h2>
@@ -127,10 +127,10 @@ export function Skills() {
             <motion.div
               key={category.category}
               className="group relative"
-              initial={{ opacity: 0, y: 40 }}
+              initial={isMobile ? { opacity: 0, y: 40 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: isMobile ? 0.05 : catIndex * 0.15 }}
+              viewport={{ once: true, margin: isMobile ? "-100px" : "0px 0px -25px 0px" }}
+              transition={isMobile ? { duration: 0.8, delay: 0.05 } : { duration: 0.8, delay: catIndex * 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Card container */}
               <div className="relative h-full rounded-3xl border border-white/10 bg-gradient-to-br from-gray-900 to-black p-6 sm:p-8 overflow-hidden">
@@ -174,10 +174,10 @@ export function Skills() {
                       <motion.div
                         key={skill}
                         className="group/skill relative"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: isMobile ? 0.02 : catIndex * 0.15 + skillIndex * 0.05 }}
+                        initial={isMobile ? { opacity: 0, x: -20 } : { opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, x: 0, y: 0 }}
+                        viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -10px 0px" }}
+                        transition={isMobile ? { delay: 0.02 } : { duration: 0.6, delay: catIndex * 0.08 + skillIndex * 0.03, ease: [0.16, 1, 0.3, 1] }}
                       >
                         <motion.div
                           className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
@@ -243,10 +243,10 @@ export function Skills() {
         {/* Additional info */}
         <motion.div
           className="mt-12 sm:mt-16 text-center px-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
+          initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+          transition={isMobile ? { delay: 0.6 } : { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm max-w-full">
             <motion.div

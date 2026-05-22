@@ -9,6 +9,7 @@ import { Contact } from './components/Contact';
 import { FloatingNav } from './components/FloatingNav';
 import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgress } from './components/ScrollProgress';
+import { GridDistortion } from './components/GridDistortion';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +49,9 @@ export default function App() {
 
           {/* Particle system background */}
           <ParticleSystem />
+
+          {/* Interactive grid distortion */}
+          <GridDistortion />
 
           {/* Floating navigation */}
           <FloatingNav />

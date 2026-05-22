@@ -98,10 +98,10 @@ export function Contact() {
       >
         <motion.div
           className="text-center mb-12 sm:mb-20 px-4"
-          initial={{ opacity: 0, y: 60 }}
+          initial={isMobile ? { opacity: 0, y: 60 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1, type: "spring", stiffness: 50 }}
+          viewport={{ once: true, margin: isMobile ? "-50px" : "0px 0px -20px 0px" }}
+          transition={isMobile ? { duration: 1, type: "spring", stiffness: 50 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Status badge */}
           <motion.div
@@ -146,10 +146,10 @@ export function Contact() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}
-            initial={{ opacity: 0, scale: 0.8, rotateX: 20 }}
-            whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
+            initial={isMobile ? { opacity: 0, scale: 0.8, rotateX: 20 } : { opacity: 0, scale: 0.98, y: 15 }}
+            whileInView={isMobile ? { opacity: 1, scale: 1, rotateX: 0 } : { opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.2 }}
+            transition={isMobile ? { duration: 1.2, delay: 0.2 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             LET'S CREATE
             <br />
@@ -160,10 +160,10 @@ export function Contact() {
           <motion.p
             className="text-gray-300 max-w-2xl mx-auto text-[0.95rem] sm:text-[1.1rem] md:text-[1.4rem]"
             style={{ fontWeight: 300 }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
+            transition={isMobile ? { delay: 0.4 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             Have an ambitious project in mind? Let's build the future together.
           </motion.p>
@@ -172,10 +172,10 @@ export function Contact() {
         {/* Contact card */}
         <motion.div
           className="max-w-3xl mx-auto mb-16 px-2 sm:px-0"
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          initial={isMobile ? { opacity: 0, y: 60, scale: 0.95 } : { opacity: 0, y: 20, scale: 0.99 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.3, type: "spring", stiffness: 50 }}
+          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -25px 0px" }}
+          transition={isMobile ? { duration: 1, delay: 0.3, type: "spring", stiffness: 50 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="relative p-6 sm:p-12 rounded-3xl border border-white/10 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-xl overflow-hidden">
             {/* Static background */}
@@ -202,10 +202,10 @@ export function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group/email block mb-8"
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={isMobile ? { opacity: 0, x: -30 } : { opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                transition={isMobile ? { duration: 0.8, delay: 0.5 } : { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={isMobile ? {} : { scale: 1.02, x: 5 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -253,14 +253,18 @@ export function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group/social relative"
-                    initial={{ opacity: 0, y: 30, rotateX: 20 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                    initial={isMobile ? { opacity: 0, y: 30, rotateX: 20 } : { opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{
-                      delay: isMobile ? 0.05 : 0.6 + index * 0.1,
+                    transition={isMobile ? {
+                      delay: 0.05,
                       duration: 0.6,
                       type: "spring",
                       stiffness: 100
+                    } : {
+                      delay: 0.4 + index * 0.08,
+                      duration: 0.8,
+                      ease: [0.16, 1, 0.3, 1]
                     }}
                     whileHover={isMobile ? { scale: 1.01 } : { scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
@@ -301,10 +305,10 @@ export function Contact() {
         {/* Footer */}
         <motion.div
           className="text-center"
-          initial={{ opacity: 0, y: 20 }}
+          initial={isMobile ? { opacity: 0, y: 20 } : { opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -10px 0px" }}
+          transition={isMobile ? { delay: 0.6, duration: 0.8 } : { duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/5 bg-white/[0.02] backdrop-blur-sm max-w-full">
             <motion.div

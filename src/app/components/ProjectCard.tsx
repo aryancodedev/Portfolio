@@ -33,6 +33,26 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-5, 0, 5]);
 
+  const cardVariants = {
+    initial: isMobile 
+      ? { opacity: 0, y: 80, rotateX: 10 } 
+      : { opacity: 0, y: 25 },
+    animate: isMobile 
+      ? { opacity: 1, y: 0, rotateX: 0 } 
+      : { opacity: 1, y: 0 },
+  };
+
+  const cardViewport = {
+    once: true,
+    margin: isMobile ? "-100px" : "0px 0px -20px 0px"
+  };
+
+  const cardTransition = {
+    duration: isMobile ? 0.8 : 1.0,
+    delay: isMobile ? 0.05 : index * 0.12,
+    ...(isMobile ? { type: "spring", stiffness: 60 } : { ease: [0.16, 1, 0.3, 1] })
+  };
+
   return (
     <motion.a
       href={link}
@@ -40,15 +60,11 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
       rel="noopener noreferrer"
       ref={cardRef as any}
       className="relative group cursor-pointer block"
-      initial={{ opacity: 0, y: 80, rotateX: 10 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{
-        duration: 0.8,
-        delay: isMobile ? 0.05 : index * 0.15,
-        type: "spring",
-        stiffness: 60
-      }}
+      initial="initial"
+      whileInView="animate"
+      viewport={cardViewport}
+      transition={cardTransition}
+      variants={cardVariants}
       whileHover={isMobile ? { scale: 1.01 } : { scale: 1.02, rotateY: 2 }}
       style={isMobile ? {} : { y, rotateY }}
     >
@@ -131,10 +147,14 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
                     background: 'rgba(96, 165, 250, 0.1)',
                     letterSpacing: '0.05em'
                   }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: isMobile ? 0.02 : index * 0.15 + i * 0.05 }}
+                  initial={isMobile ? { opacity: 0, scale: 0.8 } : { opacity: 0, y: 8 }}
+                  whileInView={isMobile ? { opacity: 1, scale: 1 } : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+                  transition={
+                    isMobile 
+                      ? { delay: 0.02 } 
+                      : { duration: 0.6, delay: index * 0.12 + i * 0.03, ease: [0.16, 1, 0.3, 1] }
+                  }
                 >
                   {tag}
                 </motion.span>

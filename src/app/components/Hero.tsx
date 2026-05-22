@@ -4,6 +4,7 @@ import { ChevronDown, FileText, ArrowUpRight } from 'lucide-react';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -15,6 +16,12 @@ export function Hero() {
   const rotateY = useTransform(x, [-300, 300], [-5, 5]);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     setTimeout(() => setIsLoaded(true), 300);
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -25,7 +32,10 @@ export function Hero() {
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, [mouseX, mouseY]);
 
   return (
@@ -58,9 +68,9 @@ export function Hero() {
       {/* Main content */}
       <div className="relative z-10 max-w-7xl mx-auto px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: isMobile ? 30 : 15 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 1.0, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Glowing badge */}
           <motion.button
@@ -103,9 +113,9 @@ export function Hero() {
               backgroundClip: 'text',
               textShadow: '0 0 80px rgba(96, 165, 250, 0.2)'
             }}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: isMobile ? 40 : 20 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.2, delay: 0.4 }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             ARYAN THAKUR
           </motion.h1>
@@ -115,7 +125,7 @@ export function Hero() {
             className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={isLoaded ? { opacity: 1 } : {}}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 1, delay: 0.6 }}
           >
             {['FULL STACK DEVELOPER', 'FRONTEND ENGINEER', 'CREATIVE TECHNOLOGIST'].map((role, i) => (
               <motion.div
@@ -127,9 +137,9 @@ export function Hero() {
                   letterSpacing: '0.08em',
                   fontWeight: 600
                 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.8 + i * 0.1 }}
+                initial={isMobile ? { opacity: 0, scale: 0.8 } : { opacity: 0, y: 10, scale: 0.96 }}
+                animate={isLoaded ? { opacity: 1, scale: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.6 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 whileHover={{
                   scale: 1.05,
                   borderColor: 'rgba(96, 165, 250, 0.5)',
@@ -149,9 +159,9 @@ export function Hero() {
               fontWeight: 300,
               letterSpacing: '0.02em'
             }}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 10 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 1.2 }}
+            transition={{ duration: 1.0, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             "Building immersive digital products, intelligent systems, and futuristic web experiences through modern engineering."
           </motion.p>

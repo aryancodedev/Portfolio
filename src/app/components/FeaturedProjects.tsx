@@ -86,20 +86,20 @@ export function FeaturedProjects() {
         {/* Section header */}
         <motion.div
           className="mb-16 sm:mb-24 text-center px-4"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: isMobile ? 50 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1 }}
+          viewport={{ once: true, margin: isMobile ? "-50px" : "0px 0px -20px 0px" }}
+          transition={{ duration: isMobile ? 1.0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <motion.div
             className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-6 sm:mb-8 backdrop-blur-xl border border-purple-500/20"
             style={{
               background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%)',
             }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={isMobile ? { opacity: 0, scale: 0.8 } : { opacity: 0, y: 10, scale: 0.98 }}
+            whileInView={isMobile ? { opacity: 1, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+            transition={isMobile ? { duration: 0.6, delay: 0.2 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
             <span className="text-purple-200 tracking-wider uppercase text-[0.7rem] sm:text-[0.75rem]" style={{ letterSpacing: '0.15em' }}>
@@ -118,10 +118,10 @@ export function FeaturedProjects() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
             }}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: isMobile ? 30 : 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+            transition={isMobile ? { duration: 0.8, delay: 0.3 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             SELECTED PROJECTS
           </motion.h2>
@@ -130,8 +130,8 @@ export function FeaturedProjects() {
             className="text-gray-400 max-w-2xl mx-auto text-[0.95rem] sm:text-[1.1rem] md:text-[1.25rem]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+            transition={isMobile ? { duration: 0.8, delay: 0.5 } : { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             Immersive digital experiences that push the boundaries of modern web technology
           </motion.p>

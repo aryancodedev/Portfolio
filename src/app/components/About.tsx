@@ -80,20 +80,20 @@ export function About() {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-16 sm:mb-24">
           <motion.div
             className="max-w-2xl"
-            initial={{ opacity: 0, y: 50 }}
+            initial={isMobile ? { opacity: 0, y: 50 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1, type: "spring", stiffness: 50 }}
+            viewport={{ once: true, margin: isMobile ? "-50px" : "0px 0px -20px 0px" }}
+            transition={isMobile ? { duration: 1, type: "spring", stiffness: 50 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <motion.div
               className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-6 sm:mb-8 backdrop-blur-xl border border-blue-500/20"
               style={{
                 background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%)',
               }}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              initial={isMobile ? { opacity: 0, x: -30 } : { opacity: 0, y: 10 }}
+              whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+              transition={isMobile ? { duration: 0.8 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
               <span className="text-blue-200 tracking-wider uppercase text-[0.7rem] sm:text-[0.75rem]" style={{ letterSpacing: '0.15em' }}>
@@ -112,10 +112,10 @@ export function About() {
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
               }}
-              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              initial={isMobile ? { opacity: 0, y: 50, scale: 0.9 } : { opacity: 0, y: 20, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.1 }}
+              viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+              transition={isMobile ? { duration: 1, delay: 0.1 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             >
               BUILDING THE
               <br />
@@ -126,10 +126,10 @@ export function About() {
               <motion.p
                 className="text-gray-300 leading-relaxed text-[0.95rem] sm:text-[1.1rem] md:text-[1.3rem] lg:text-[1.6rem]"
                 style={{ fontWeight: 300 }}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                initial={isMobile ? { opacity: 0, x: -20 } : { opacity: 0, y: 10 }}
+                whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+                transition={isMobile ? { delay: 0.2 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               >
                 I specialize in creating <span className="text-white font-medium">immersive digital experiences</span> that
                 blend cutting-edge technology with intuitive design.
@@ -138,10 +138,10 @@ export function About() {
               <motion.p
                 className="text-gray-400 leading-relaxed text-[0.85rem] sm:text-[0.95rem] md:text-[1.15rem] lg:text-[1.4rem]"
                 style={{ fontWeight: 300 }}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
+                initial={isMobile ? { opacity: 0, x: -20 } : { opacity: 0, y: 10 }}
+                whileInView={isMobile ? { opacity: 1, x: 0 } : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+                transition={isMobile ? { delay: 0.4 } : { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               >
                 From architecting scalable full-stack applications to crafting pixel-perfect interfaces,
                 I focus on delivering <span className="text-blue-400">high-performance solutions</span> that
@@ -152,10 +152,10 @@ export function About() {
 
           <motion.div
             className="relative w-full max-w-[280px] h-[360px] sm:max-w-[320px] sm:h-[420px] lg:w-[400px] lg:h-[500px] shrink-0 group mt-8 lg:mt-0"
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, type: "spring", stiffness: 50, delay: 0.3 }}
+            initial={isMobile ? { opacity: 0, scale: 0.8, rotate: -5 } : { opacity: 0, scale: 0.98, y: 15 }}
+            whileInView={isMobile ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+            transition={isMobile ? { duration: 1, type: "spring", stiffness: 50, delay: 0.3 } : { duration: 1.0, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             whileHover={isMobile ? {} : { scale: 1.05, rotate: 2 }}
           >
             {/* Glassmorphic Background Card */}
@@ -183,10 +183,10 @@ export function About() {
             <motion.div
               key={principle.title}
               className="group relative"
-              initial={{ opacity: 0, y: 40 }}
+              initial={isMobile ? { opacity: 0, y: 40 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: isMobile ? 0.05 : index * 0.15 }}
+              viewport={{ once: true, margin: isMobile ? "-100px" : "0px 0px -25px 0px" }}
+              transition={isMobile ? { duration: 0.8, delay: 0.05 } : { duration: 0.8, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="relative h-full p-6 sm:p-8 rounded-3xl border border-white/5 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm overflow-hidden">
                 {/* Hover glow */}
@@ -253,10 +253,10 @@ export function About() {
         {/* Bottom statement */}
         <motion.div
           className="mt-16 sm:mt-24 text-center px-4"
-          initial={{ opacity: 0, y: 30 }}
+          initial={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
+          transition={isMobile ? { duration: 0.8, delay: 0.5 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="inline-block px-6 py-5 sm:px-8 sm:py-6 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-500/5 to-purple-500/5 backdrop-blur-sm">
             <p
