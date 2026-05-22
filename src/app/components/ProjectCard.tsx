@@ -100,7 +100,7 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
             </motion.h3>
 
             {/* Description */}
-            <p 
+            <p
               className="mb-8 text-gray-300 leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1rem, 1.5vw, 1.25rem)' }}
             >

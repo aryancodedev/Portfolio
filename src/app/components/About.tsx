@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Code2, Rocket, Cpu, Boxes } from 'lucide-react';
+import { Code2, Rocket, Cpu, Boxes, FileText, ArrowUpRight } from 'lucide-react';
 import { useRef } from 'react';
 
 export function About() {
@@ -134,6 +134,27 @@ export function About() {
                 I focus on delivering <span className="text-blue-400">high-performance solutions</span> that
                 push the boundaries of what's possible on the web.
               </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+                className="pt-4"
+              >
+                <motion.a
+                  href="/RESUME.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold tracking-wider text-white border border-blue-500/20 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm hover:from-blue-500/20 hover:to-purple-500/20 hover:border-blue-500/40 transition-all duration-300 shadow-lg shadow-blue-500/5 group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <FileText className="w-5 h-5 text-blue-400" />
+                  <span>VIEW MY RESUME</span>
+                  <ArrowUpRight className="w-4 h-4 text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </motion.a>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -146,18 +167,18 @@ export function About() {
             whileHover={{ scale: 1.05, rotate: 2 }}
           >
             {/* Glassmorphic Background Card */}
-            <div 
-              className="absolute inset-x-0 bottom-0 top-20 rounded-3xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-md z-0 transition-all duration-500 group-hover:border-blue-500/30" 
+            <div
+              className="absolute inset-x-0 bottom-0 top-20 rounded-3xl border border-white/10 bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-md z-0 transition-all duration-500 group-hover:border-blue-500/30"
               style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05)' }}
             />
-            
+
             {/* The transparent image sitting ON the frame, breaking out the top */}
             <img
               src="/tr_image.png"
               alt="Aryan Thakur"
               className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-[110%] object-contain object-bottom drop-shadow-[0_-10px_20px_rgba(59,130,246,0.15)] transition-all duration-700 z-10"
             />
-            
+
             {/* Glowing boundary strip at the bottom */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent z-20 blur-sm opacity-70 group-hover:opacity-100 transition-opacity" />
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent z-20 opacity-50 group-hover:opacity-100 transition-opacity" />

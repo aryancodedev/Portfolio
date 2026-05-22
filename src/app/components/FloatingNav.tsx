@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
-import { Home, Briefcase, User, Code, Mail } from 'lucide-react';
+import { Home, Briefcase, User, Code, Mail, FileText } from 'lucide-react';
 
 export function FloatingNav() {
   const [activeSection, setActiveSection] = useState(0);
@@ -94,6 +94,31 @@ export function FloatingNav() {
             </motion.div>
           </motion.button>
         ))}
+
+        {/* Special Resume Button */}
+        <div className="w-full h-px bg-white/10 my-1" />
+        
+        <motion.a
+          href="/RESUME.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/5 transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <FileText className="w-4 h-4 text-blue-400 group-hover:text-blue-300" />
+          
+          {/* Tooltip */}
+          <motion.div
+            className="absolute right-14 top-1/2 -translate-y-1/2 px-3 py-2 rounded-lg bg-gray-900 border border-white/10 backdrop-blur-sm whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
+            initial={false}
+          >
+            <span className="text-blue-400 font-semibold" style={{ fontSize: '0.85rem' }}>
+              Resume
+            </span>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full w-0 h-0 border-8 border-transparent border-l-gray-900" />
+          </motion.div>
+        </motion.a>
 
         {/* Connection line */}
         <div className="absolute left-1/2 top-3 bottom-3 w-px bg-gradient-to-b from-transparent via-gray-700 to-transparent -translate-x-1/2 -z-10" />

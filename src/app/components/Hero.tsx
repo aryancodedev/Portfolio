@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, FileText, ArrowUpRight } from 'lucide-react';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -143,7 +143,7 @@ export function Hero() {
 
           {/* Tagline */}
           <motion.p
-            className="max-w-3xl mx-auto text-gray-300 leading-relaxed"
+            className="max-w-3xl mx-auto text-gray-300 leading-relaxed mb-12"
             style={{
               fontSize: 'clamp(1rem, 2vw, 1.5rem)',
               fontWeight: 300,
@@ -155,6 +155,40 @@ export function Hero() {
           >
             "Building immersive digital products, intelligent systems, and futuristic web experiences through modern engineering."
           </motion.p>
+
+          {/* Action Buttons */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, delay: 1.4 }}
+          >
+            <motion.button
+              onClick={() => {
+                const sections = document.querySelectorAll('section');
+                sections[1]?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-8 py-4 rounded-full font-bold tracking-wider text-black bg-white cursor-pointer relative overflow-hidden group shadow-lg shadow-white/10 hover:shadow-white/25 transition-all duration-300 flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>VIEW WORK</span>
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+            </motion.button>
+            
+            <motion.a
+              href="/RESUME.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-full font-bold tracking-wider text-white border border-white/10 bg-white/5 backdrop-blur-sm cursor-pointer hover:bg-white/10 hover:border-white/20 transition-all duration-300 flex items-center gap-2 group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FileText className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors" />
+              <span>VIEW RESUME</span>
+              <ArrowUpRight className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </motion.a>
+          </motion.div>
         </motion.div>
       </div>
 

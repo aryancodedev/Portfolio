@@ -33,12 +33,12 @@ export function FeaturedProjects() {
       link: 'https://nain-aur-naqsh.vercel.app/'
     },
     {
-      title: 'Prathmikta',
-      description: 'A civic intelligence platform with live issue tracking, interactive map overlays, real-time dashboards, and transparency systems.',
-      tags: ['React', 'Mapbox', 'WebSockets', 'Data Viz'],
+      title: 'RentIt',
+      description: 'A modern real-estate platform developed for a property dealer company focused on responsive property browsing, structured listings, and a clean user experience across devices.',
+      tags: ['React.js', 'JavaScript', 'Tailwind CSS', 'MongoDB'],
       gradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.4) 0%, rgba(5, 150, 105, 0.4) 100%)',
       icon: <MapPin className="w-10 h-10 text-emerald-400" />,
-      link: 'https://prathmikta-social-web-app-livid.vercel.app/'
+      link: 'https://rent-it-fit.vercel.app/'
     },
     {
       title: 'Gesture-Controlled Reel Scrolling',
