@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 interface ProjectCardProps {
   title: string;
@@ -14,6 +14,17 @@ interface ProjectCardProps {
 
 export function ProjectCard({ title, description, tags, gradient, icon, index, link }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"]
@@ -31,18 +42,18 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
       className="relative group cursor-pointer block"
       initial={{ opacity: 0, y: 80, rotateX: 10 }}
       whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      viewport={{ once: true, margin: "-150px" }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{
-        duration: 1,
-        delay: index * 0.2,
+        duration: 0.8,
+        delay: isMobile ? 0.05 : index * 0.15,
         type: "spring",
-        stiffness: 50
+        stiffness: 60
       }}
-      whileHover={{ scale: 1.02, rotateY: 2 }}
-      style={{ y, rotateY }}
+      whileHover={isMobile ? { scale: 1.01 } : { scale: 1.02, rotateY: 2 }}
+      style={isMobile ? {} : { y, rotateY }}
     >
       {/* Main card */}
-      <div className="relative h-[600px] rounded-3xl overflow-hidden border border-white/10">
+      <div className="relative h-[460px] sm:h-[520px] md:h-[600px] rounded-3xl overflow-hidden border border-white/10">
         {/* Static gradient background */}
         <motion.div
           className="absolute inset-0 opacity-20"
@@ -62,37 +73,41 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
         />
 
         {/* Glow effect on hover */}
-        <motion.div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-          style={{
-            background: `radial-gradient(circle at 50% 50%, ${gradient.split(',')[0].replace('linear-gradient(135deg', '').trim()}, transparent 70%)`,
-            filter: 'blur(60px)'
-          }}
-        />
+        {!isMobile && (
+          <motion.div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+            style={{
+              background: `radial-gradient(circle at 50% 50%, ${gradient.split(',')[0].replace('linear-gradient(135deg', '').trim()}, transparent 70%)`,
+              filter: 'blur(60px)'
+            }}
+          />
+        )}
 
         {/* Content */}
-        <div className="relative h-full p-12 flex flex-col justify-between">
+        <div className="relative h-full p-6 sm:p-8 md:p-12 flex flex-col justify-between">
           {/* Icon */}
           <motion.div
-            className="w-20 h-20 rounded-2xl backdrop-blur-sm border border-white/20 flex items-center justify-center"
+            className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl backdrop-blur-sm border border-white/20 flex items-center justify-center"
             style={{
               background: 'rgba(255, 255, 255, 0.05)',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
             }}
-            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileHover={isMobile ? {} : { scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            {icon}
+            <div className="scale-75 sm:scale-100 flex items-center justify-center">
+              {icon}
+            </div>
           </motion.div>
 
           <div>
             {/* Title */}
             <motion.h3
-              className="mb-6 tracking-tight"
+              className="mb-3 sm:mb-6 tracking-tight"
               style={{
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                fontSize: 'clamp(1.75rem, 4vw, 3.5rem)',
                 fontWeight: 700,
-                lineHeight: 1,
+                lineHeight: 1.1,
                 color: '#ffffff'
               }}
             >
@@ -101,27 +116,25 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
 
             {/* Description */}
             <p
-              className="mb-8 text-gray-300 leading-relaxed max-w-xl"
-              style={{ fontSize: 'clamp(1rem, 1.5vw, 1.25rem)' }}
+              className="mb-4 sm:mb-8 text-gray-300 leading-relaxed max-w-xl text-[0.9rem] sm:text-[1.05rem] md:text-[1.2rem]"
             >
               {description}
             </p>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-3 mb-6">
+            <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
               {tags.map((tag, i) => (
                 <motion.span
                   key={tag}
-                  className="px-4 py-2 rounded-full backdrop-blur-sm border border-white/10 text-blue-200"
+                  className="px-3 py-1 sm:px-4 sm:py-2 rounded-full backdrop-blur-sm border border-white/10 text-blue-200 text-[0.75rem] sm:text-[0.85rem]"
                   style={{
                     background: 'rgba(96, 165, 250, 0.1)',
-                    fontSize: '0.85rem',
                     letterSpacing: '0.05em'
                   }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 + i * 0.05 }}
+                  transition={{ delay: isMobile ? 0.02 : index * 0.15 + i * 0.05 }}
                 >
                   {tag}
                 </motion.span>
@@ -130,25 +143,25 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
 
             {/* CTA */}
             <motion.div
-              className="group/btn inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/20 backdrop-blur-sm overflow-hidden relative"
+              className="group/btn inline-flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full border border-white/20 backdrop-blur-sm overflow-hidden relative cursor-pointer"
               style={{ background: 'rgba(255, 255, 255, 0.05)' }}
-              whileHover={{ scale: 1.05 }}
+              whileHover={isMobile ? {} : { scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover/btn:opacity-100"
                 transition={{ duration: 0.3 }}
               />
-              <span className="relative text-white tracking-wide" style={{ fontSize: '0.95rem' }}>
+              <span className="relative text-white tracking-wide text-[0.85rem] sm:text-[0.95rem]">
                 View Project
               </span>
-              <ArrowUpRight className="relative w-5 h-5 text-blue-400 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+              <ArrowUpRight className="relative w-4 h-4 sm:w-5 sm:h-5 text-blue-400 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
             </motion.div>
           </div>
         </div>
 
         {/* Corner accent */}
-        <div className="absolute top-0 right-0 w-64 h-64 opacity-20">
+        <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 opacity-20 pointer-events-none">
           <motion.div
             className="w-full h-full"
             style={{
@@ -158,20 +171,22 @@ export function ProjectCard({ title, description, tags, gradient, icon, index, l
         </div>
       </div>
 
-      {/* Floating sparkle on hover */}
-      <motion.div
-        className="absolute -top-4 -right-4 opacity-0 group-hover:opacity-100"
-        animate={{
-          rotate: 360,
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      >
-        <Sparkles className="w-8 h-8 text-blue-400" />
-      </motion.div>
+      {/* Floating sparkle on hover (Disabled on mobile) */}
+      {!isMobile && (
+        <motion.div
+          className="absolute -top-4 -right-4 opacity-0 group-hover:opacity-100"
+          animate={{
+            rotate: 360,
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <Sparkles className="w-8 h-8 text-blue-400" />
+        </motion.div>
+      )}
     </motion.a>
   );
 }

@@ -33,7 +33,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white">
+    <div className="relative min-h-screen bg-[#030212] text-white">
       {/* Loading sequence */}
       {isLoading && <LoadingSequence onComplete={handleLoadingComplete} />}
 

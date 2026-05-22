@@ -29,7 +29,7 @@ export function Hero() {
   }, [mouseX, mouseY]);
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-transparent">
       {/* Static gradient orbs for performance */}
       <motion.div
         className="absolute top-1/4 -left-1/4 w-[800px] h-[800px] rounded-full blur-3xl opacity-20"
@@ -92,18 +92,18 @@ export function Hero() {
 
           {/* Main title */}
           <motion.h1
-            className="mb-8 tracking-tight"
+            className="mb-6 sm:mb-8 tracking-tight"
             style={{
-              fontSize: 'clamp(3.5rem, 12vw, 10rem)',
+              fontSize: 'clamp(2.8rem, 9vw, 8rem)',
               fontWeight: 800,
-              lineHeight: 0.9,
+              lineHeight: 0.95,
               background: 'linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #a855f7 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              textShadow: '0 0 80px rgba(96, 165, 250, 0.3)'
+              textShadow: '0 0 80px rgba(96, 165, 250, 0.2)'
             }}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.4 }}
           >
@@ -112,7 +112,7 @@ export function Hero() {
 
           {/* Role badges */}
           <motion.div
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={isLoaded ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.8 }}
@@ -120,11 +120,11 @@ export function Hero() {
             {['FULL STACK DEVELOPER', 'FRONTEND ENGINEER', 'CREATIVE TECHNOLOGIST'].map((role, i) => (
               <motion.div
                 key={role}
-                className="px-6 py-3 rounded-lg backdrop-blur-sm border border-white/10"
+                className="px-4 py-2 sm:px-6 sm:py-3 rounded-lg backdrop-blur-sm border border-white/10"
                 style={{
                   background: 'rgba(255, 255, 255, 0.03)',
-                  fontSize: 'clamp(0.7rem, 1.5vw, 0.95rem)',
-                  letterSpacing: '0.1em',
+                  fontSize: 'clamp(0.65rem, 1.5vw, 0.95rem)',
+                  letterSpacing: '0.08em',
                   fontWeight: 600
                 }}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -143,9 +143,9 @@ export function Hero() {
 
           {/* Tagline */}
           <motion.p
-            className="max-w-3xl mx-auto text-gray-300 leading-relaxed mb-12"
+            className="max-w-3xl mx-auto text-gray-300 leading-relaxed mb-8 sm:mb-12 px-4 sm:px-0"
             style={{
-              fontSize: 'clamp(1rem, 2vw, 1.5rem)',
+              fontSize: 'clamp(0.95rem, 2vw, 1.4rem)',
               fontWeight: 300,
               letterSpacing: '0.02em'
             }}

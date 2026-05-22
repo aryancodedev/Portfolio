@@ -99,7 +99,7 @@ export function ParticleSystem() {
       time += 0.01;
 
       // Clear with fade effect
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillStyle = 'rgba(3, 2, 18, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw animated wave gradient

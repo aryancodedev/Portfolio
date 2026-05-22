@@ -1,10 +1,21 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ProjectCard } from './ProjectCard';
 import { Target, Palette, MapPin, Hand } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 export function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -51,31 +62,37 @@ export function FeaturedProjects() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-32 px-8 bg-gradient-to-b from-black via-gray-900 to-black overflow-hidden">
-      {/* Background effects with parallax */}
+    <section ref={sectionRef} className="relative py-20 sm:py-32 px-4 sm:px-8 bg-transparent overflow-hidden">
+      {/* Blending glow from Hero to achieve atmospheric continuity */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[300px] bg-gradient-to-b from-blue-500/15 to-transparent rounded-full blur-3xl pointer-events-none opacity-80" />
+
+      {/* Background effects with parallax (conditional on mobile) */}
       <motion.div
         className="absolute top-1/4 left-0 w-[600px] h-[600px] rounded-full bg-blue-500/10 blur-3xl"
-        style={{ y: y1 }}
+        style={isMobile ? {} : { y: y1 }}
       />
       <motion.div
         className="absolute bottom-1/4 right-0 w-[600px] h-[600px] rounded-full bg-purple-500/10 blur-3xl"
-        style={{ y: y2 }}
+        style={isMobile ? {} : { y: y2 }}
       />
       <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-pink-500/8 blur-3xl"
       />
 
-      <motion.div className="relative z-10 max-w-7xl mx-auto" style={{ opacity, scale }}>
+      <motion.div 
+        className="relative z-10 max-w-7xl mx-auto" 
+        style={isMobile ? { opacity: 1, scale: 1 } : { opacity, scale }}
+      >
         {/* Section header */}
         <motion.div
-          className="mb-24 text-center"
+          className="mb-16 sm:mb-24 text-center px-4"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-8 backdrop-blur-xl border border-purple-500/20"
+            className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-6 sm:mb-8 backdrop-blur-xl border border-purple-500/20"
             style={{
               background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%)',
             }}
@@ -85,15 +102,15 @@ export function FeaturedProjects() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-            <span className="text-purple-200 tracking-wider uppercase" style={{ fontSize: '0.75rem', letterSpacing: '0.15em' }}>
+            <span className="text-purple-200 tracking-wider uppercase text-[0.7rem] sm:text-[0.75rem]" style={{ letterSpacing: '0.15em' }}>
               Featured Work
             </span>
           </motion.div>
 
           <motion.h2
-            className="mb-6 tracking-tight"
+            className="mb-4 sm:mb-6 tracking-tight"
             style={{
-              fontSize: 'clamp(2.5rem, 8vw, 6rem)',
+              fontSize: 'clamp(2.2rem, 7vw, 6rem)',
               fontWeight: 800,
               lineHeight: 1,
               background: 'linear-gradient(135deg, #ffffff 0%, #a855f7 100%)',
@@ -110,8 +127,7 @@ export function FeaturedProjects() {
           </motion.h2>
 
           <motion.p
-            className="text-gray-400 max-w-2xl mx-auto"
-            style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}
+            className="text-gray-400 max-w-2xl mx-auto text-[0.95rem] sm:text-[1.1rem] md:text-[1.25rem]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -122,7 +138,7 @@ export function FeaturedProjects() {
         </motion.div>
 
         {/* Projects grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 px-2 sm:px-0">
           {projects.map((project, index) => (
             <ProjectCard key={project.title} {...project} index={index} />
           ))}
