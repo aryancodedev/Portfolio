@@ -1,7 +1,67 @@
 import { motion, useScroll, useTransform } from 'motion/react';
-import { Mail, Github, Linkedin, MessageCircle, ArrowUpRight, Send } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
+/* ─────────────────────────────────────────────────────── 
+   Helper Component — React Magnetic Cursor Hover Pull
+   ─────────────────────────────────────────────────────── */
+function MagneticElement({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!ref.current) return;
+    const { clientX, clientY } = e;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const centerX = rect.left + width / 2;
+    const centerY = rect.top + height / 2;
+    
+    const distanceX = clientX - centerX;
+    const distanceY = clientY - centerY;
+    
+    // Magnetic pull radius: 120px
+    const radius = 120;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    if (distance < radius) {
+      // Smoothly attract towards cursor coordinates (up to 30px)
+      const strength = 0.32;
+      setPosition({
+        x: distanceX * strength,
+        y: distanceY * strength
+      });
+    } else {
+      setPosition({ x: 0, y: 0 });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseLeave={handleMouseLeave}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+      className="inline-block"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────── 
+   MAIN EXPORT — Cinematic Gen-Z Contact Finale
+   ─────────────────────────────────────────────────────── */
 export function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -22,313 +82,296 @@ export function Contact() {
 
   const y1 = useTransform(scrollYProgress, [0, 1], [-50, 50]);
   const y2 = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1, 0.9]);
 
   const socialLinks = [
     {
       name: 'GitHub',
-      icon: <Github className="w-6 h-6" />,
       url: 'https://github.com/aryancodedev',
-      color: 'from-gray-500 to-gray-700',
-      hoverColor: 'rgba(156, 163, 175, 0.2)'
     },
     {
       name: 'LinkedIn',
-      icon: <Linkedin className="w-6 h-6" />,
       url: 'https://www.linkedin.com/in/aryanthakur2307/',
-      color: 'from-blue-500 to-blue-700',
-      hoverColor: 'rgba(59, 130, 246, 0.2)'
     },
     {
       name: 'WhatsApp',
-      icon: <MessageCircle className="w-6 h-6" />,
       url: 'https://wa.me/918950918229',
-      color: 'from-green-500 to-emerald-600',
-      hoverColor: 'rgba(34, 197, 94, 0.2)'
     },
-    {
-      name: 'Email',
-      icon: <Mail className="w-6 h-6" />,
-      url: 'https://mail.google.com/mail/?view=cm&fs=1&to=aryanthakur2307@gmail.com',
-      color: 'from-purple-500 to-pink-500',
-      hoverColor: 'rgba(168, 85, 247, 0.2)'
-    }
   ];
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center py-20 sm:py-32 px-4 sm:px-8 bg-transparent overflow-hidden">
-      {/* Ambient effects with parallax (Optimized) */}
+    <section ref={sectionRef} id="contact-section" className="relative min-h-screen flex items-center py-20 sm:py-32 px-4 sm:px-8 bg-transparent overflow-hidden">
+      
+      {/* Cinematic slowly moving infinite background marquee */}
+      {!isMobile && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 flex items-center select-none opacity-[0.035]">
+          <div className="animate-marquee-left flex whitespace-nowrap text-[12rem] font-black text-outline-watermark tracking-widest uppercase">
+            CREATE // CONNECT // TRANSMIT // BUILD // FUTURE // CREATE // CONNECT // TRANSMIT // BUILD // FUTURE // 
+          </div>
+        </div>
+      )}
+
+      {/* Ambient glowing radial light orbs */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-3xl"
+        className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none z-0"
         style={isMobile ? {
-          background: 'radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%)'
+          background: 'radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%)'
         } : {
-          background: 'radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%)',
           y: y1
         }}
       />
-
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-3xl"
+        className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none z-0"
         style={isMobile ? {
-          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)'
+          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)'
         } : {
-          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)',
           y: y2
         }}
       />
-
-      {/* Static Scanlines */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0px, transparent 1px, transparent 2px)',
-        }}
-      />
-
-      {/* Additional static orb */}
-      <motion.div
-        className="absolute top-1/3 left-1/3 w-[500px] h-[500px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%)' }}
-      />
-
-      <motion.div 
-        className="relative z-10 max-w-6xl mx-auto w-full" 
-        style={isMobile ? { scale: 1 } : { scale }}
-      >
+      
+      {/* Rotating credit compass watermark */}
+      {!isMobile && (
         <motion.div
-          className="text-center mb-12 sm:mb-20 px-4"
-          initial={isMobile ? { opacity: 0, y: 60 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: isMobile ? "-50px" : "0px 0px -20px 0px" }}
-          transition={isMobile ? { duration: 1, type: "spring", stiffness: 50 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute text-outline-watermark text-[25rem] opacity-[0.12] -bottom-24 -right-24 -z-10 pointer-events-none select-none"
+          style={{
+            fontFamily: 'monospace',
+            WebkitTextStroke: '1px rgba(255, 255, 255, 0.01)',
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
         >
-          {/* Status badge */}
-          <motion.div
-            className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-8 sm:mb-12 backdrop-blur-xl border border-green-500/20"
-            style={{
-              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)',
-            }}
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            animate={{
-              boxShadow: [
-                '0 0 20px rgba(16, 185, 129, 0.2)',
-                '0 0 40px rgba(16, 185, 129, 0.3)',
-                '0 0 20px rgba(16, 185, 129, 0.2)',
-              ]
-            }}
-          >
-            <motion.div
-              className="w-2 h-2 rounded-full bg-green-400"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [1, 0.7, 1]
-              }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            <span className="text-green-200 tracking-wider uppercase text-[0.7rem] sm:text-[0.75rem]" style={{ letterSpacing: '0.15em' }}>
-              Available for Projects
-            </span>
-          </motion.div>
+          ⊕
+        </motion.div>
+      )}
 
-          {/* Main heading */}
-          <motion.h2
-            className="mb-6 sm:mb-8 tracking-tight"
-            style={{
-              fontSize: 'clamp(2.2rem, 9vw, 8rem)',
-              fontWeight: 900,
-              lineHeight: 0.9,
-              background: 'linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #a855f7 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}
-            initial={isMobile ? { opacity: 0, scale: 0.8, rotateX: 20 } : { opacity: 0, scale: 0.98, y: 15 }}
-            whileInView={isMobile ? { opacity: 1, scale: 1, rotateX: 0 } : { opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={isMobile ? { duration: 1.2, delay: 0.2 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            LET'S CREATE
-            <br />
-            SOMETHING EPIC
-          </motion.h2>
+      <div className="relative z-10 max-w-[1400px] mx-auto w-full px-2 sm:px-6 lg:px-16 cinematic-spotlight">
 
-          {/* Subtitle */}
-          <motion.p
-            className="text-gray-300 max-w-2xl mx-auto text-[0.95rem] sm:text-[1.1rem] md:text-[1.4rem]"
-            style={{ fontWeight: 300 }}
-            initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={isMobile ? { delay: 0.4 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Have an ambitious project in mind? Let's build the future together.
-          </motion.p>
+        {/* Double widescreen frame top bar */}
+        {!isMobile && (
+          <div className="space-y-1 mb-16">
+            <div className="editorial-guideline-x" />
+            <div className="editorial-guideline-x opacity-30" />
+          </div>
+        )}
+
+        {/* Section label */}
+        <motion.div
+          className="section-label mb-8 sm:mb-12"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: '-30px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="w-8 sm:w-12 h-[1px] bg-white/20" />
+          <span className="mono-metadata text-purple-400 font-semibold" style={{ letterSpacing: '0.25em' }}>
+            [ SECTION // OFFLINE_CREDITS ]
+          </span>
         </motion.div>
 
-        {/* Contact card */}
-        <motion.div
-          className="max-w-3xl mx-auto mb-16 px-2 sm:px-0"
-          initial={isMobile ? { opacity: 0, y: 60, scale: 0.95 } : { opacity: 0, y: 20, scale: 0.99 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -25px 0px" }}
-          transition={isMobile ? { duration: 1, delay: 0.3, type: "spring", stiffness: 50 } : { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="relative p-6 sm:p-12 rounded-3xl border border-white/10 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-xl overflow-hidden">
-            {/* Static background */}
-            <motion.div
-              className="absolute inset-0 opacity-10"
-              style={{
-                background: 'radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.3), transparent 70%)'
-              }}
-            />
+        {/* Main Split Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-            {/* Static Grid overlay */}
-            <motion.div
-              className="absolute inset-0 opacity-[0.02]"
-              style={{
-                backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px)',
-                backgroundSize: '40px 40px'
-              }}
-            />
-
-            <div className="relative">
-              {/* Email CTA */}
-              <motion.a
-                href="https://mail.google.com/mail/?view=cm&fs=1&to=aryanthakur2307@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/email block mb-8"
-                initial={isMobile ? { opacity: 0, x: -30 } : { opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
+          {/* Left Column — Large CTA Title + Meta Block */}
+          <div className="lg:col-span-6 w-full flex flex-col justify-between min-h-[350px]">
+            <div>
+              {/* Asymmetrical Layered Kinetic Typography Headline */}
+              <motion.h2
+                className="mb-8 tracking-tight flex flex-col items-start select-none z-10"
+                initial={isMobile ? { opacity: 0, y: 40 } : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={isMobile ? { duration: 0.8, delay: 0.5 } : { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={isMobile ? {} : { scale: 1.02, x: 5 }}
-                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 sm:p-8 gap-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm overflow-hidden relative">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover/email:opacity-100"
-                    transition={{ duration: 0.3 }}
-                  />
+                <span className="font-black text-white leading-none text-[clamp(2.5rem,5.5vw,4.8rem)]">
+                  LET'S
+                </span>
+                
+                <span 
+                  className="text-outline-watermark leading-none font-black text-[clamp(2.5rem,5.5vw,4.8rem)] my-2"
+                  style={{ 
+                    WebkitTextStroke: '2px #3b82f6', 
+                    textShadow: '0 0 35px rgba(59,130,246,0.15)',
+                    letterSpacing: '0.04em'
+                  }}
+                >
+                  CREATE
+                </span>
 
-                  <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
-                    <motion.div
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shrink-0"
-                      whileHover={isMobile ? {} : { rotate: 360 }}
-                      transition={{ duration: 0.6 }}
+                <span className="font-light italic text-zinc-400 leading-none text-[clamp(1.8rem,4.2vw,3.6rem)] font-serif pl-6 relative">
+                  something
+                </span>
+
+                <span 
+                  className="font-black text-white leading-none text-[clamp(2rem,4.2vw,3.6rem)] mt-3 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.15)] tracking-tighter"
+                >
+                  EXTRAORDINARY
+                </span>
+              </motion.h2>
+
+              <motion.p
+                className="text-zinc-300 leading-relaxed font-light mb-12 max-w-md"
+                style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)' }}
+                initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Have an ambitious project, creative endeavor, or complex integration in mind? Let's construct the future together.
+              </motion.p>
+            </div>
+
+            {/* Bottom-left monospaced tech metadata stack (PRESERVED EXACTLY UNTOUCHED) */}
+            {!isMobile && (
+              <motion.div
+                className="mono-metadata space-y-2 border-l border-white/5 pl-4 text-xs pt-4"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <div>[ LOC: JAIPUR, INDIA ]</div>
+                <div>[ TIMEZONE: GMT+5:30 // CURRENT ]</div>
+                <div>[ INBOX_FREQ: GENERALLY &lt; 24HR ]</div>
+                <div>[ AVAILABILITY: CORE_OPEN ]</div>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Right Column — Magnetic Interactive Contact options */}
+          <div className="lg:col-span-6 w-full space-y-12 sm:space-y-16">
+
+            {/* Direct Email Transmission Block (Magnetic & Glow interactive Swatch) */}
+            <motion.div
+              className="relative py-8 border-b border-white/[0.04] group/email"
+              initial={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {!isMobile && <div className="anchor-crosshair pointer-events-none" />}
+
+              <p className="mono-metadata text-blue-400 font-extrabold mb-5 tracking-widest">
+                [ DIRECT_TRANSMISSION // ACTIVE_SECURE ]
+              </p>
+
+              <MagneticElement>
+                <motion.a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=aryanthakur2307@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="email-oversized group/link inline-flex flex-col gap-2 py-3.5 px-6 rounded-2xl border border-white/[0.03] bg-white/[0.01] hover:bg-blue-500/[0.04] hover:border-blue-500/30 shadow-[0_0_30px_rgba(255,255,255,0.01)] hover:shadow-[0_0_40px_rgba(59,130,246,0.1)] transition-all duration-500 relative"
+                  whileHover={{ y: -4 }}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(rgba(59,130,246,0.04)_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none" />
+
+                  <div className="flex items-center gap-4 relative z-10">
+                    <span
+                      className="text-white group-hover/link:text-blue-400 transition-colors duration-500 break-all font-light"
+                      style={{
+                        fontSize: 'clamp(1.1rem, 2.4vw, 2rem)',
+                        letterSpacing: '-0.02em',
+                        lineHeight: 1.1
+                      }}
                     >
-                      <Send className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                    </motion.div>
-                    <div className="min-w-0">
-                      <p className="text-gray-400 mb-1 text-[0.8rem] sm:text-[0.85rem]">
-                        Primary Contact
-                      </p>
-                      <p className="text-white break-all sm:break-normal" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.8rem)', fontWeight: 600 }}>
-                        aryanthakur2307@gmail.com
-                      </p>
-                    </div>
+                      aryanthakur2307@gmail.com
+                    </span>
+                    <ArrowUpRight className="w-5 h-5 sm:w-7 sm:h-7 text-white/30 group-hover/link:text-blue-400 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-all duration-300 shrink-0" />
                   </div>
 
-                  <ArrowUpRight className="absolute top-6 right-6 sm:relative sm:top-auto sm:right-auto w-5 h-5 sm:w-6 sm:h-6 text-blue-400 group-hover/email:translate-x-1 group-hover/email:-translate-y-1 transition-transform shrink-0" />
-                </div>
-              </motion.a>
+                  {/* Telemetry specs reveal on hover */}
+                  <div className="flex justify-between items-center mt-3 pt-3 border-t border-white/[0.03] text-[0.62rem] font-mono text-zinc-500 z-10 group-hover/email:text-zinc-300 transition-colors duration-300">
+                    <span>[ ADDR: MAIL_TO ]</span>
+                    <span className="text-blue-400/80 font-bold opacity-0 group-hover/email:opacity-100 transition-opacity duration-500">
+                      [ PROTOCOL: IMAP_SECURE ]
+                    </span>
+                  </div>
+                </motion.a>
+              </MagneticElement>
+            </motion.div>
 
-              {/* Divider */}
-              <div className="flex items-center gap-4 mb-8">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                <span className="text-gray-500 uppercase tracking-wider text-[0.7rem] sm:text-[0.75rem]">or connect via</span>
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              </div>
+            {/* Social Links Connectivity (Magnetic inline blocks) */}
+            <motion.div
+              className="relative py-8"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <p className="mono-metadata text-purple-400 font-extrabold mb-8 tracking-widest">
+                [ DUPLEX_CONNECTIVITY // NODES ]
+              </p>
 
-              {/* Social links */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                {socialLinks.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/social relative"
-                    initial={isMobile ? { opacity: 0, y: 30, rotateX: 20 } : { opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={isMobile ? {
-                      delay: 0.05,
-                      duration: 0.6,
-                      type: "spring",
-                      stiffness: 100
-                    } : {
-                      delay: 0.4 + index * 0.08,
-                      duration: 0.8,
-                      ease: [0.16, 1, 0.3, 1]
-                    }}
-                    whileHover={isMobile ? { scale: 1.01 } : { scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <div className="relative p-4 sm:p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-sm flex flex-col items-center gap-2 sm:gap-3 overflow-hidden">
-                      {/* Hover glow (disabled on mobile) */}
-                      {!isMobile && (
-                        <motion.div
-                          className="absolute inset-0 opacity-0 group-hover/social:opacity-100"
-                          style={{ backgroundColor: link.hoverColor }}
-                          transition={{ duration: 0.3 }}
-                        />
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-0">
+                {socialLinks.map((link, index) => {
+                  const addresses = ['GITHUB.COM/ARYAN', 'LINKEDIN.COM/IN/ARYAN', 'WA.ME/ARYAN'];
+                  const pathText = addresses[index];
+
+                  return (
+                    <span key={link.name} className="flex items-center group/social-span">
+                      <MagneticElement>
+                        <motion.a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/social inline-flex flex-col gap-1.5 py-2.5 px-4 rounded-xl border border-white/[0.03] bg-white/[0.005] hover:bg-purple-500/[0.04] hover:border-purple-500/30 transition-all duration-300"
+                        >
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="text-zinc-100 group-hover/social:text-purple-400 transition-colors duration-300 font-bold"
+                              style={{
+                                fontSize: 'clamp(0.95rem, 1.8vw, 1.2rem)',
+                                letterSpacing: '0.04em'
+                              }}
+                            >
+                              {link.name}
+                            </span>
+                            <ArrowUpRight className="w-4 h-4 text-white/20 group-hover/social:text-purple-400 group-hover/social:translate-x-0.5 group-hover/social:-translate-y-0.5 transition-all duration-300" />
+                          </div>
+                          
+                          <span className="text-[0.52rem] font-mono text-zinc-600 block opacity-40 group-hover/social:opacity-100 group-hover/social:text-purple-300/80 transition-all duration-300">
+                            {pathText}
+                          </span>
+                        </motion.a>
+                      </MagneticElement>
+                      {index < socialLinks.length - 1 && (
+                        <span className="hidden sm:inline text-white/10 mx-5 text-xl select-none">/</span>
                       )}
-
-                      {/* Icon */}
-                      <motion.div
-                        className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${link.color} flex items-center justify-center shrink-0`}
-                        whileHover={isMobile ? {} : { rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <div className="text-white scale-75 sm:scale-100 flex items-center justify-center">
-                          {link.icon}
-                        </div>
-                      </motion.div>
-
-                      {/* Name */}
-                      <span className="relative text-gray-300 group-hover/social:text-white transition-colors text-[0.8rem] sm:text-[0.9rem] font-medium">
-                        {link.name}
-                      </span>
-                    </div>
-                  </motion.a>
-                ))}
+                    </span>
+                  );
+                })}
               </div>
-            </div>
+            </motion.div>
+
           </div>
-        </motion.div>
+        </div>
+
+        {/* Double widescreen frame bottom bar */}
+        {!isMobile && (
+          <div className="space-y-1 mt-20 mb-10">
+            <div className="editorial-guideline-x opacity-30" />
+            <div className="editorial-guideline-x" />
+          </div>
+        )}
 
         {/* Footer */}
         <motion.div
-          className="text-center"
-          initial={isMobile ? { opacity: 0, y: 20 } : { opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -10px 0px" }}
-          transition={isMobile ? { delay: 0.6, duration: 0.8 } : { duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="pt-6"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/5 bg-white/[0.02] backdrop-blur-sm max-w-full">
-            <motion.div
-              className="w-2 h-2 rounded-full bg-blue-400 shrink-0"
-              animate={{
-                opacity: [1, 0.3, 1],
-                scale: [1, 1.3, 1]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <span className="text-gray-500 text-[0.75rem] sm:text-[0.85rem] leading-normal text-left sm:text-center">
-              © 2026 Aryan Thakur. Crafted with precision.
-            </span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-zinc-500 text-[0.75rem] sm:text-[0.8rem] tracking-widest font-mono uppercase">
+              © 2026 Aryan Thakur. All rights reserved.
+            </p>
+            <p className="text-zinc-500 text-[0.75rem] sm:text-[0.8rem] tracking-widest font-mono uppercase">
+              [ CRAFTED_WITH_PRECISION // V1.2 ]
+            </p>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

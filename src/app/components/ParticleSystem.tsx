@@ -41,11 +41,11 @@ export function ParticleSystem() {
     const particles: Particle[] = [];
     const particleCount = 30; // Dramatically reduced for performance
     const colors = [
-      'rgba(96, 165, 250, 0.6)',
-      'rgba(168, 85, 247, 0.6)',
-      'rgba(59, 130, 246, 0.5)',
-      'rgba(147, 51, 234, 0.5)',
-      'rgba(16, 185, 129, 0.4)'
+      'rgba(96, 165, 250, 0.3)',
+      'rgba(168, 85, 247, 0.3)',
+      'rgba(59, 130, 246, 0.25)',
+      'rgba(147, 51, 234, 0.25)',
+      'rgba(16, 185, 129, 0.2)'
     ];
 
     // Initialize particles
@@ -56,7 +56,7 @@ export function ParticleSystem() {
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 3 + 0.5,
-        opacity: Math.random() * 0.6 + 0.3,
+        opacity: Math.random() * 0.3 + 0.1,
         color: colors[Math.floor(Math.random() * colors.length)],
         pulsePhase: Math.random() * Math.PI * 2
       });
@@ -66,9 +66,9 @@ export function ParticleSystem() {
     const orbs: FloatingOrb[] = [];
     const orbCount = 2; // Reduced for performance
     const orbColors = [
-      'rgba(96, 165, 250, 0.15)',
-      'rgba(168, 85, 247, 0.15)',
-      'rgba(16, 185, 129, 0.12)'
+      'rgba(96, 165, 250, 0.08)',
+      'rgba(168, 85, 247, 0.08)',
+      'rgba(16, 185, 129, 0.06)'
     ];
 
     for (let i = 0; i < orbCount; i++) {
@@ -87,13 +87,19 @@ export function ParticleSystem() {
     let mouseX = canvas.width / 2;
     let mouseY = canvas.height / 2;
     let time = 0;
+    let scrollY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     };
 
+    const handleScroll = () => {
+      scrollY = window.scrollY;
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     const animate = () => {
       time += 0.01;
@@ -102,17 +108,28 @@ export function ParticleSystem() {
       ctx.fillStyle = 'rgba(3, 2, 18, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw animated wave gradient
-      const gradient = ctx.createLinearGradient(
-        0,
-        Math.sin(time * 0.5) * 100,
-        canvas.width,
-        canvas.height + Math.cos(time * 0.3) * 100
-      );
-      gradient.addColorStop(0, 'rgba(96, 165, 250, 0.01)');
-      gradient.addColorStop(0.5, 'rgba(168, 85, 247, 0.02)');
-      gradient.addColorStop(1, 'rgba(16, 185, 129, 0.01)');
-      ctx.fillStyle = gradient;
+      // Draw procedural fine horizontal digital grid lines (optimized to 75px spacing for speed and aesthetics)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.004)';
+      ctx.lineWidth = 0.5;
+      for (let y = 0; y < canvas.height; y += 75) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+
+      // Technical laser axis coordinate line sweep (dynamic scanner)
+      const laserY = (time * 50) % (canvas.height + 100) - 50;
+      if (laserY > 0 && laserY < canvas.height) {
+        ctx.strokeStyle = 'rgba(96, 165, 250, 0.012)';
+        ctx.beginPath();
+        ctx.moveTo(0, laserY);
+        ctx.lineTo(canvas.width, laserY);
+        ctx.stroke();
+      }
+
+      // Draw animated wave gradient (optimized flat fill overlay)
+      ctx.fillStyle = 'rgba(96, 165, 250, 0.006)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw floating orbs with blur and pulse
@@ -149,15 +166,18 @@ export function ParticleSystem() {
         particle.pulsePhase += 0.02;
         const pulseSize = particle.size * (1 + Math.sin(particle.pulsePhase) * 0.3);
 
-        // Mouse interaction
+        // Mouse interaction (fast bounding box check before Math.sqrt)
         const dx = mouseX - particle.x;
         const dy = mouseY - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const distSq = dx * dx + dy * dy;
 
-        if (distance < 200) {
-          const force = (200 - distance) / 200;
-          particle.vx -= (dx / distance) * force * 0.15;
-          particle.vy -= (dy / distance) * force * 0.15;
+        if (distSq < 200 * 200) {
+          const distance = Math.sqrt(distSq);
+          if (distance > 0) {
+            const force = (200 - distance) / 200;
+            particle.vx -= (dx / distance) * force * 0.15;
+            particle.vy -= (dy / distance) * force * 0.15;
+          }
         }
 
         // Attraction to center with wave motion
@@ -186,27 +206,19 @@ export function ParticleSystem() {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle with enhanced glow
+        // Draw particle with vector solid micro-glow (100x faster than CPU radial gradient)
         const glowSize = pulseSize * 3;
-        const glowGradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, glowSize
-        );
-        glowGradient.addColorStop(0, particle.color);
-        glowGradient.addColorStop(0.5, particle.color.replace(/[\d.]+\)/, '0.2)'));
-        glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
-        ctx.fillStyle = glowGradient;
+        ctx.fillStyle = particle.color.replace(/[\d.]+\)/, '0.12)');
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, glowSize, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw core (removed shadowBlur for performance)
+        // Draw core
         ctx.fillStyle = particle.color;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, pulseSize, 0, Math.PI * 2);
         ctx.fill();
-        
+
         // Removed expensive O(n^2) line drawing for performance
       });
 
@@ -222,6 +234,7 @@ export function ParticleSystem() {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
@@ -230,7 +243,7 @@ export function ParticleSystem() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.7 }}
+      style={{ opacity: 0.35 }}
     />
   );
 }

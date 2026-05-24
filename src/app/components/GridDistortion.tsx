@@ -17,12 +17,13 @@ export function GridDistortion() {
     let isMobile = window.innerWidth < 1024;
     let frameCount = 0;
 
-    const GRID_SPACING = 80;
+    const GRID_SPACING = 90;
     const DISTORT_RADIUS = 200;
     const DISTORT_STRENGTH = 18;
     const LINE_COLOR_DESKTOP = 'rgba(96, 165, 250, 0.04)';
     const LINE_COLOR_MOBILE = 'rgba(96, 165, 250, 0.025)';
     const CURSOR_GLOW_COLOR = 'rgba(96, 165, 250, 0.06)';
+    const DISTORT_RADIUS_SQ = DISTORT_RADIUS * DISTORT_RADIUS;
 
     const setCanvasSize = () => {
       canvas.width = window.innerWidth;
@@ -53,9 +54,10 @@ export function GridDistortion() {
 
       const dx = px - mouseX;
       const dy = py - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const distSq = dx * dx + dy * dy;
 
-      if (dist < DISTORT_RADIUS && dist > 0) {
+      if (distSq < DISTORT_RADIUS_SQ && distSq > 0) {
+        const dist = Math.sqrt(distSq);
         const force = (1 - dist / DISTORT_RADIUS) * DISTORT_STRENGTH;
         const angle = Math.atan2(dy, dx);
         return [
@@ -97,10 +99,10 @@ export function GridDistortion() {
       ctx.strokeStyle = lineColor;
       ctx.lineWidth = 0.5;
 
-      // Horizontal lines
+      // Horizontal lines (optimized segments divisor from 20 to 55 to reduce draw latency)
       for (let y = -GRID_SPACING + scrollOffset; y <= canvas.height + GRID_SPACING; y += GRID_SPACING) {
         ctx.beginPath();
-        const segments = Math.ceil(canvas.width / 20);
+        const segments = Math.ceil(canvas.width / 55);
         for (let s = 0; s <= segments; s++) {
           const sx = (s / segments) * canvas.width;
           const [dx, dy] = distortPoint(sx, y);
@@ -113,10 +115,10 @@ export function GridDistortion() {
         ctx.stroke();
       }
 
-      // Vertical lines
+      // Vertical lines (optimized segments divisor from 20 to 55)
       for (let x = 0; x <= canvas.width; x += GRID_SPACING) {
         ctx.beginPath();
-        const segments = Math.ceil(canvas.height / 20);
+        const segments = Math.ceil(canvas.height / 55);
         for (let s = 0; s <= segments; s++) {
           const sy = (s / segments) * canvas.height;
           const [dx, dy] = distortPoint(x, sy + scrollOffset);
@@ -129,17 +131,22 @@ export function GridDistortion() {
         ctx.stroke();
       }
 
-      // Draw intersection dots near cursor (desktop only)
+      // Draw intersection dots near cursor (highly optimized bounding box fast path)
       if (!isMobile && mouseX > 0 && mouseY > 0) {
+        const distRadLimit = DISTORT_RADIUS * 0.8;
+        const distRadLimitSq = distRadLimit * distRadLimit;
         for (let x = 0; x <= canvas.width; x += GRID_SPACING) {
           for (let y = -GRID_SPACING + scrollOffset; y <= canvas.height + GRID_SPACING; y += GRID_SPACING) {
-            const dist = Math.sqrt((x - mouseX) ** 2 + (y - mouseY) ** 2);
-            if (dist < DISTORT_RADIUS * 0.8) {
-              const [dx, dy] = distortPoint(x, y);
-              const alpha = (1 - dist / (DISTORT_RADIUS * 0.8)) * 0.3;
+            const dx = x - mouseX;
+            const dy = y - mouseY;
+            const distSq = dx * dx + dy * dy;
+            if (distSq < distRadLimitSq) {
+              const dist = Math.sqrt(distSq);
+              const [dxPoint, dyPoint] = distortPoint(x, y);
+              const alpha = (1 - dist / distRadLimit) * 0.3;
               ctx.fillStyle = `rgba(96, 165, 250, ${alpha})`;
               ctx.beginPath();
-              ctx.arc(dx, dy, 1.5, 0, Math.PI * 2);
+              ctx.arc(dxPoint, dyPoint, 1.5, 0, Math.PI * 2);
               ctx.fill();
             }
           }

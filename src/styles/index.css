@@ -54,17 +54,39 @@ body {
 
 /* Futuristic cursor scan ring rotation */
 @keyframes cursor-scan-rotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 /* Cinematic scan line sweep */
 @keyframes scan-line-sweep {
-  0% { transform: translateY(-4px); opacity: 0; }
-  2% { opacity: 1; }
-  30% { opacity: 1; }
-  33% { transform: translateY(100vh); opacity: 0; }
-  100% { transform: translateY(100vh); opacity: 0; }
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  33% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
 }
 
 /* GPU Acceleration for desktop animations to prevent repaints and layout shifts */
@@ -75,4 +97,362 @@ body {
     backface-visibility: hidden;
     perspective: 1000px;
   }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Cinematic Project Sections
+   ═══════════════════════════════════════════════════════ */
+
+/* Base project section — fullscreen on desktop, auto on mobile */
+.project-section {
+  position: relative;
+  width: 100%;
+  min-height: auto;
+  padding: 5rem 0;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .project-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0;
+  }
+}
+
+.project-section-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Project Number ─────────────────────────────────── */
+.project-number {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.25);
+  margin-bottom: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Project Title — Massive ────────────────────────── */
+.project-title-massive {
+  font-weight: 900;
+  line-height: 0.9;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+}
+
+/* ── Project Title — Editorial (thin) ───────────────── */
+.project-title-editorial {
+  font-weight: 200;
+  line-height: 0.85;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Project Description ────────────────────────────── */
+.project-description {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── Project Tags — Inline ──────────────────────────── */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+}
+
+.project-tag {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.project-tag-sep {
+  color: rgba(255, 255, 255, 0.15);
+  margin: 0 0.6rem;
+  font-size: 0.9rem;
+}
+
+/* ── Project Tags — 2x2 Grid ────────────────────────── */
+.project-tags-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 0.75rem 2rem;
+  justify-content: center;
+}
+
+.project-tags-grid .project-tag {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ── Project CTA ────────────────────────────────────── */
+.project-cta {
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 0.25rem;
+}
+
+.project-cta-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-cta:hover .project-cta-line {
+  width: 100%;
+}
+
+/* ── Watermark Number (large background) ────────────── */
+.project-watermark {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  transform: translateY(-50%);
+  font-size: clamp(10rem, 25vw, 25rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.025);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+@media (max-width: 1023px) {
+  .project-watermark {
+    display: none;
+  }
+}
+
+/* ── Diagonal Accent Line ───────────────────────────── */
+.project-diagonal {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 140%;
+  height: 1px;
+  transform: rotate(25deg);
+  transform-origin: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Vertical Tags Sidebar (desktop only) ───────────── */
+.project-vertical-tags {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+  display: flex;
+  gap: 1.5rem;
+  white-space: nowrap;
+  z-index: 20;
+}
+
+.project-vertical-tags .project-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Editorial Section Styles & Technical Grid System
+   ═══════════════════════════════════════════════════════ */
+
+/* Reusable section label (line + text) */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Cinematic Contrast spotlight mask behind text blocks to improve readability over particles */
+.cinematic-spotlight {
+  position: relative;
+}
+
+.cinematic-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: -10% -20%;
+  background: radial-gradient(circle at center, rgba(3, 2, 18, 0.95) 0%, rgba(3, 2, 18, 0.7) 50%, rgba(3, 2, 18, 0) 100%);
+  filter: blur(20px);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+/* Asymmetric vertical guidelines */
+.editorial-guideline-y {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(255, 255, 255, 0.07) 100%);
+  pointer-events: none;
+}
+
+/* Asymmetric horizontal guidelines */
+.editorial-guideline-x {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+}
+
+/* Corner visual anchors representing crosshair markers */
+.anchor-crosshair {
+  position: relative;
+}
+
+.anchor-crosshair::before {
+  content: '+';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(96, 165, 250, 0.45);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.anchor-crosshair::after {
+  content: '+';
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(168, 85, 247, 0.45);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Skills Category Active Band Highlight */
+.skills-active-band {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skills-active-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.03) 0%, rgba(168, 85, 247, 0.01) 50%, transparent 100%);
+  border-left: 2px solid #3b82f6;
+  opacity: 0;
+  transition: opacity 0.4s ease, border-left-color 0.4s ease;
+  pointer-events: none;
+}
+
+.skills-active-band:hover::before {
+  opacity: 1;
+}
+
+/* Email oversized link (Contact section) */
+.email-oversized {
+  text-decoration: none;
+  position: relative;
+}
+
+.email-oversized:hover {
+  text-decoration: none;
+}
+
+/* Monospace technical sub-labels */
+.mono-metadata {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Gen-Z Creative Kinetic Scrolling & Outlines
+   ═══════════════════════════════════════════════════════ */
+
+/* Infinite Scrolling Marquees */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 35s linear infinite;
+  will-change: transform;
+}
+
+/* Hover pauses the marquee cleanly */
+.tech-band:hover .animate-marquee-left,
+.tech-band:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+/* Translucent Outline Watermark text for layered layouts */
+.text-outline-watermark {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.03);
+  font-weight: 900;
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: 0.05em;
+}
+
+/* Glitch Underline Style */
+.glitch-underline {
+  position: relative;
+}
+
+.glitch-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #3b82f6 0%, #a855f7 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glitch-underline:hover::after {
+  transform: scaleX(1);
 }

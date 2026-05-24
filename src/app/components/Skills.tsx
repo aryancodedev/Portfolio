@@ -19,260 +19,152 @@ export function Skills() {
     offset: ["start end", "end start"]
   });
 
-  const gridY = useTransform(scrollYProgress, [0, 1], ['0px', '60px']);
-
   const skillCategories = [
     {
       category: 'Frontend',
-      color: 'from-blue-500 to-cyan-500',
+      accent: '#3b82f6',
+      accentRgb: '59, 130, 246',
       skills: ['React', 'TypeScript', 'Next.js', 'Motion', 'Tailwind CSS', 'WebGL']
     },
     {
       category: 'Backend',
-      color: 'from-purple-500 to-pink-500',
+      accent: '#a855f7',
+      accentRgb: '168, 85, 247',
       skills: ['Node.js', 'Python', 'PostgreSQL', 'Redis', 'GraphQL', 'REST APIs']
     },
     {
       category: 'DevOps',
-      color: 'from-orange-500 to-red-500',
+      accent: '#f97316',
+      accentRgb: '249, 115, 22',
       skills: ['Docker', 'AWS', 'CI/CD', 'Vercel', 'Git', 'Linux']
     },
     {
       category: 'Creative',
-      color: 'from-green-500 to-emerald-500',
+      accent: '#10b981',
+      accentRgb: '16, 185, 129',
       skills: ['GSAP', 'Three.js', 'WebXR', 'Canvas API', 'SVG Animation', 'Shaders']
     }
   ];
 
   return (
     <section ref={sectionRef} className="relative py-20 sm:py-32 px-4 sm:px-8 bg-transparent overflow-hidden">
-      {/* Animated grid background with scroll parallax (disabled on mobile) */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.03]"
-        style={isMobile ? {
-          backgroundImage: 'linear-gradient(rgba(96, 165, 250, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(96, 165, 250, 0.5) 1px, transparent 1px)',
-          backgroundSize: '60px 60px'
-        } : {
-          backgroundImage: 'linear-gradient(rgba(96, 165, 250, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(96, 165, 250, 0.5) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-          y: gridY
-        }}
+      {/* Ambient orbs — subtle, no grid pattern */}
+      <div
+        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)' }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%)' }}
       />
 
-      {/* Static glowing orbs */}
-      <motion.div
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-blue-500/10 blur-3xl"
-      />
-      <motion.div
-        className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-purple-500/10 blur-3xl"
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-emerald-500/8 blur-3xl"
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-16">
+        {/* ── Header — editorial label + massive heading ── */}
         <motion.div
-          className="mb-16 sm:mb-24 text-center px-4"
+          className="mb-16 sm:mb-24"
           initial={isMobile ? { opacity: 0, y: 50 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: isMobile ? "-50px" : "0px 0px -20px 0px" }}
           transition={isMobile ? { duration: 1 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
+          {/* Section label */}
           <motion.div
-            className="inline-flex items-center gap-2 px-6 py-2 rounded-full mb-6 sm:mb-8 backdrop-blur-xl border border-emerald-500/20"
-            style={{
-              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%)',
-            }}
-            initial={isMobile ? { opacity: 0, scale: 0.5 } : { opacity: 0, scale: 0.96, y: 10 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={isMobile ? { duration: 0.6, type: "spring", stiffness: 200 } : { duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="section-label mb-8 sm:mb-10"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-30px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-200 tracking-wider uppercase text-[0.7rem] sm:text-[0.75rem]" style={{ letterSpacing: '0.15em' }}>
-              Tech Stack
+            <div className="w-8 sm:w-12 h-[1px] bg-white/20" />
+            <span className="text-white/40 tracking-widest uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.2em' }}>
+              Capabilities
             </span>
           </motion.div>
 
+          {/* Massive heading */}
           <motion.h2
-            className="mb-4 sm:mb-6 tracking-tight"
+            className="tracking-tight"
             style={{
               fontSize: 'clamp(2.2rem, 7vw, 6rem)',
               fontWeight: 800,
               lineHeight: 1,
-              background: 'linear-gradient(135deg, #10b981 0%, #60a5fa 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
+              color: '#ffffff'
             }}
-            initial={isMobile ? { opacity: 0, rotateX: 45 } : { opacity: 0, y: 20, scale: 0.98 }}
-            whileInView={isMobile ? { opacity: 1, rotateX: 0 } : { opacity: 1, y: 0, scale: 1 }}
+            initial={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, y: 20, scale: 0.98 }}
+            whileInView={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={isMobile ? { duration: 0.8, delay: 0.2 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={isMobile ? { duration: 0.8, delay: 0.1 } : { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            CAPABILITIES
+            TECH STACK
           </motion.h2>
-
-          <p 
-            className="text-gray-400 max-w-2xl mx-auto text-[0.95rem] sm:text-[1.1rem] md:text-[1.25rem]"
-          >
-            Modern technologies powering next-generation experiences
-          </p>
         </motion.div>
 
-        {/* Skills modules */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 px-2 sm:px-0">
+        {/* ── Skill categories — premium digital kinetic marquees ── */}
+        <div className="relative tech-bands cinematic-spotlight">
+          {/* Top structural guideline */}
+          <div className="editorial-guideline-x" />
+
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={category.category}
-              className="group relative"
-              initial={isMobile ? { opacity: 0, y: 40 } : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: isMobile ? "-100px" : "0px 0px -25px 0px" }}
-              transition={isMobile ? { duration: 0.8, delay: 0.05 } : { duration: 0.8, delay: catIndex * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative tech-band skills-active-band group py-8 lg:py-10"
+              initial={isMobile ? { opacity: 0, y: 30 } : { opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, margin: isMobile ? "-60px" : "0px 0px -25px 0px" }}
+              transition={{ duration: 0.8, delay: isMobile ? 0.05 : catIndex * 0.12, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Card container */}
-              <div className="relative h-full rounded-3xl border border-white/10 bg-gradient-to-br from-gray-900 to-black p-6 sm:p-8 overflow-hidden">
-                {/* Animated gradient overlay (disabled on mobile) */}
-                {!isMobile && (
-                  <motion.div
-                    className={`absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-br ${category.color}`}
-                    transition={{ duration: 0.5 }}
-                  />
-                )}
+              {/* Corner structural intersection crosshairs */}
+              {!isMobile && <div className="anchor-crosshair" />}
 
-                {/* Glow effect (disabled on mobile) */}
-                {!isMobile && (
-                  <motion.div
-                    className={`absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${category.color} blur-[60px] opacity-0 group-hover:opacity-30`}
-                    transition={{ duration: 0.7 }}
-                  />
-                )}
+              <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12 px-4 sm:px-8">
+                
+                {/* Monospace Code + Category Name Left Panel */}
+                <div className="shrink-0 lg:w-[260px] xl:w-[300px] flex flex-col gap-1 z-10 bg-[#030212]/80 backdrop-blur-[2px] pr-4">
+                  <span className="mono-metadata text-zinc-500 font-medium block">
+                    [ LAYER_0{catIndex + 1} // {category.category.toUpperCase()}_ENGINE ]
+                  </span>
+                  <h3
+                    className="font-black tracking-tighter transition-colors duration-300"
+                    style={{
+                      fontSize: 'clamp(1.4rem, 3vw, 2.2rem)',
+                      color: category.accent,
+                      lineHeight: 1.15
+                    }}
+                  >
+                    {category.category}
+                  </h3>
+                </div>
 
-                {/* Content */}
-                <div className="relative">
-                  {/* Category header */}
-                  <div className="mb-6">
-                    <motion.div
-                      className={`inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r ${category.color} mb-4`}
-                      whileHover={isMobile ? {} : { scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                      <span className="text-white uppercase tracking-wider" style={{ fontSize: '0.8rem', fontWeight: 700 }}>
-                        {category.category}
-                      </span>
-                    </motion.div>
-
-                    <div className={`h-1 w-16 bg-gradient-to-r ${category.color} rounded-full`} />
-                  </div>
-
-                  {/* Skills list */}
-                  <div className="space-y-3">
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skill}
-                        className="group/skill relative"
-                        initial={isMobile ? { opacity: 0, x: -20 } : { opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, x: 0, y: 0 }}
-                        viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -10px 0px" }}
-                        transition={isMobile ? { delay: 0.02 } : { duration: 0.6, delay: catIndex * 0.08 + skillIndex * 0.03, ease: [0.16, 1, 0.3, 1] }}
-                      >
-                        <motion.div
-                          className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/5 bg-white/[0.02] backdrop-blur-sm"
-                          whileHover={isMobile ? {} : { 
-                            x: 10,
-                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                            borderColor: 'rgba(255, 255, 255, 0.1)'
-                          }}
-                          transition={{ type: "spring", stiffness: 300 }}
+                {/* Skills Infinite Scrolling Marquee Track */}
+                <div className="flex-1 overflow-hidden relative py-2 select-none">
+                  {/* Vignette fade bounds on sides */}
+                  <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#030212] to-transparent z-10 pointer-events-none" />
+                  <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#030212] to-transparent z-10 pointer-events-none" />
+                  
+                  <div className={`flex gap-12 whitespace-nowrap ${catIndex % 2 === 0 ? 'animate-marquee-left' : 'animate-marquee-right'}`}>
+                    {/* Render thrice to guarantee gapless scrolling on ultra-wide screens */}
+                    {[...category.skills, ...category.skills, ...category.skills].map((skill, skillIndex) => (
+                      <div key={`${skill}-${skillIndex}`} className="flex items-center gap-12 whitespace-nowrap">
+                        <motion.span
+                          className="tech-skill font-black text-zinc-100/35 group-hover:text-zinc-100/70 transition-colors duration-500 uppercase tracking-widest text-[1.1rem] sm:text-[1.3rem] block cursor-pointer"
+                          whileHover={{ scale: 1.1, color: category.accent }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                         >
-                          {/* Skill indicator */}
-                          <motion.div
-                            className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${category.color}`}
-                            animate={{
-                              scale: [1, 1.3, 1],
-                              opacity: [0.7, 1, 0.7]
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              delay: skillIndex * 0.2
-                            }}
-                          />
-
-                          {/* Skill name */}
-                          <span className="text-gray-300 group-hover/skill:text-white transition-colors text-[0.9rem] sm:text-[0.95rem]">
-                            {skill}
-                          </span>
-
-                          {/* Hover line (disabled on mobile) */}
-                          {!isMobile && (
-                            <motion.div
-                              className={`ml-auto h-0.5 w-0 group-hover/skill:w-8 bg-gradient-to-r ${category.color} rounded-full`}
-                              transition={{ duration: 0.3 }}
-                            />
-                          )}
-                        </motion.div>
-                      </motion.div>
+                          {skill}
+                        </motion.span>
+                        <span className="text-white/10 text-xs select-none">/</span>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Bottom accent (disabled on mobile) */}
-                {!isMobile && (
-                  <motion.div
-                    className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${category.color} opacity-0 group-hover:opacity-100`}
-                    transition={{ duration: 0.5 }}
-                  />
-                )}
               </div>
 
-              {/* External glow (disabled on mobile) */}
-              {!isMobile && (
-                <motion.div
-                  className={`absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br ${category.color} blur-xl opacity-0 group-hover:opacity-20`}
-                  transition={{ duration: 0.7 }}
-                />
-              )}
+              {/* Intersecting horizontal guidelines */}
+              <div className="editorial-guideline-x mt-8 lg:mt-10" />
             </motion.div>
           ))}
         </div>
-
-        {/* Additional info */}
-        <motion.div
-          className="mt-12 sm:mt-16 text-center px-4"
-          initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: isMobile ? "0px" : "0px 0px -20px 0px" }}
-          transition={isMobile ? { delay: 0.6 } : { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm max-w-full">
-            <motion.div
-              className="flex gap-1 shrink-0"
-              animate={{
-                opacity: [1, 0.5, 1]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              {[0, 1, 2].map((i) => (
-                <div
-                  key={i}
-                  className="w-1.5 h-1.5 rounded-full bg-blue-400"
-                  style={{ animationDelay: `${i * 0.15}s` }}
-                />
-              ))}
-            </motion.div>
-            <span className="text-gray-400 text-[0.8rem] sm:text-[0.9rem] leading-snug text-left sm:text-center">
-              Constantly learning and adapting to emerging technologies
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
