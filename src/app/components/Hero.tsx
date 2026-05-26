@@ -43,7 +43,16 @@ export function Hero() {
       {/* Mobile-only responsive desktop disclaimer badge */}
       {isMobile && (
         <div className="absolute top-6 left-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-[92%] max-w-[280px]">
-          <div className="text-center py-1.5 px-3.5 rounded-full border border-blue-500/20 bg-blue-950/40 backdrop-blur-md shadow-[0_2px_10px_rgba(59,130,246,0.05)] flex items-center justify-center gap-2">
+          <div 
+            onClick={() => {
+              const viewportMeta = document.querySelector('meta[name="viewport"]');
+              if (viewportMeta) {
+                viewportMeta.setAttribute('content', 'width=1280');
+              }
+              setIsMobile(false);
+            }}
+            className="text-center py-1.5 px-3.5 rounded-full border border-blue-500/20 bg-blue-950/40 backdrop-blur-md shadow-[0_2px_10px_rgba(59,130,246,0.05)] flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-900/50 transition-colors"
+          >
             <span className="w-1.2 h-1.2 rounded-full bg-blue-400 animate-pulse shrink-0" style={{ boxShadow: '0 0 6px #60a5fa' }} />
             <span className="text-[0.68rem] font-mono font-extrabold text-blue-300 tracking-wider uppercase whitespace-nowrap">
               [ BEST VIEWED ON DESKTOP ]
