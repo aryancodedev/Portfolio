@@ -100,5 +100,5 @@ export function VantaGlobeBackground() {
     };
   }, []);
 
-  return <div ref={containerRef} aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none" />;
+  return <div ref={containerRef} aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none opacity-40" />;
 }
