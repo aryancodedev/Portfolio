@@ -18,8 +18,8 @@ const projects = [
   {
     title: 'NAIN AUR NAQSH',
     tagline: 'LUXURY BRAND & DESIGN STUDIO',
-    description: 'A luxury brand and creative web studio platform featuring kinetic typography reveals, interactive image reveal slides, and premium custom cursors.',
-    tags: ['Next.js', 'GSAP', 'Framer Motion', 'Tailwind CSS', 'Custom Cursor'],
+    description: 'A luxury brand and creative web studio platform featuring kinetic typography reveals, interactive image reveal slides, and polished motion details.',
+    tags: ['Next.js', 'GSAP', 'Framer Motion', 'Tailwind CSS'],
     accent: '#a855f7',
     accentRgb: '168, 85, 247',
     link: 'https://nain-aur-naqsh.vercel.app/',
@@ -120,7 +120,7 @@ export function FeaturedProjects() {
     <section 
       ref={containerRef} 
       id="projects-section" 
-      className="relative bg-[#030212]"
+      className="relative bg-transparent"
       style={{ height: isMobile ? 'auto' : '400vh' }}
     >
       {/* Volumetric GPU-Composited background ambient pointer lights (follows mouse coords on desktop) */}

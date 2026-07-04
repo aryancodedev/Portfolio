@@ -20,7 +20,7 @@ export function GridDistortion() {
     const GRID_SPACING = 90;
     const DISTORT_RADIUS = 200;
     const DISTORT_STRENGTH = 18;
-    const LINE_COLOR_DESKTOP = 'rgba(96, 165, 250, 0.04)';
+    const LINE_COLOR_DESKTOP = 'rgba(96, 165, 250, 0.4)';
     const LINE_COLOR_MOBILE = 'rgba(96, 165, 250, 0.025)';
     const CURSOR_GLOW_COLOR = 'rgba(96, 165, 250, 0.06)';
     const DISTORT_RADIUS_SQ = DISTORT_RADIUS * DISTORT_RADIUS;
@@ -170,7 +170,7 @@ export function GridDistortion() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-[1]"
-      style={{ opacity: 0.8 }}
+      style={{ opacity: 0.94 }}
     />
   );
 }

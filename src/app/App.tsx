@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { ParticleSystem } from './components/ParticleSystem';
 import { LoadingSequence } from './components/LoadingSequence';
 import { Hero } from './components/Hero';
 import { FeaturedProjects } from './components/FeaturedProjects';
@@ -7,9 +6,9 @@ import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
 import { FloatingNav } from './components/FloatingNav';
-import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgress } from './components/ScrollProgress';
 import { GridDistortion } from './components/GridDistortion';
+import { VantaGlobeBackground } from './components/VantaGlobeBackground';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,12 +43,11 @@ export default function App() {
           {/* Scroll progress bar */}
           <ScrollProgress />
 
-          {/* Interaction layers */}
-          <CustomCursor />
-          <GridDistortion />
+          {/* Background animation */}
+          <VantaGlobeBackground />
 
-          {/* Particle system background (fully-optimized continuous vector loop) */}
-          <ParticleSystem />
+          {/* Interaction layers */}
+          <GridDistortion />
 
           {/* Unified cinematic sections */}
           <FloatingNav />
