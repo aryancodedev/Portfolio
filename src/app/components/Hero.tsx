@@ -167,29 +167,37 @@ export function Hero() {
               const contactSec = document.getElementById('contact-section') || sections[sections.length - 1];
               contactSec?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="inline-flex items-center gap-3.5 mb-12 cursor-pointer relative py-3 px-8 rounded-full border border-emerald-500/25 bg-emerald-500/[0.03] backdrop-blur-[2px] shadow-[0_2px_12px_rgba(16,185,129,0.04)] hover:border-emerald-400/40 hover:bg-emerald-500/[0.08] hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 group"
+            className="inline-flex items-center gap-3 mb-7 cursor-pointer relative overflow-hidden rounded-lg border border-white/10 bg-[#07110c]/90 backdrop-blur-md shadow-[0_14px_28px_rgba(0,0,0,0.22)] transition-all duration-300 group hover:border-emerald-400/28 hover:bg-[#08140f]/95 hover:shadow-[0_18px_36px_rgba(0,0,0,0.28)]"
             whileHover={{ y: -2, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 350, damping: 20 }}
           >
-            {/* Subtle elegant glass glow backdrop */}
-            <span className="absolute inset-0 rounded-full bg-emerald-500/5 group-hover:bg-emerald-500/10 blur-sm transition-all duration-300 pointer-events-none" />
+            <span className="absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-emerald-300 via-emerald-400 to-transparent opacity-90" />
+            <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-            <div className="relative flex items-center gap-3 z-10">
+            <div className="relative z-10 flex items-center gap-3 pl-3.5 pr-4 py-2.5">
               <motion.div
-                className="w-2 h-2 rounded-full bg-emerald-400"
-                animate={{ opacity: [1, 0.5, 1], scale: [1, 1.15, 1] }}
-                transition={{ duration: 2.0, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ boxShadow: '0 0 6px rgba(52, 211, 153, 0.8)' }}
-              />
-              <span className="text-emerald-400/90 group-hover:text-white font-extrabold tracking-widest uppercase transition-colors duration-300 text-[0.75rem]" style={{ letterSpacing: '0.22em' }}>
-                Available for opportunities
-              </span>
+                className="relative flex h-3 w-3 items-center justify-center"
+                animate={{ opacity: [1, 0.35, 1], scale: [1, 0.92, 1] }}
+                transition={{ duration: 1.15, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <span className="absolute h-full w-full rounded-full bg-emerald-400/15" />
+                <span className="relative h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_0_3px_rgba(52,211,153,0.1)]" />
+              </motion.div>
+
+              <div className="flex flex-col items-start leading-none">
+                <span className="text-[0.53rem] uppercase tracking-[0.32em] text-white/38 group-hover:text-white/50 transition-colors duration-300">
+                  shell
+                </span>
+                <span className="mt-1 text-[0.68rem] sm:text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-white/85 group-hover:text-white transition-colors duration-300">
+                  open for work
+                </span>
+              </div>
             </div>
 
-            {/* Visual technical micro ticks inside capsule */}
-            <span className="absolute left-5 top-1/2 -translate-y-1/2 w-1.5 h-[1px] bg-emerald-400/30 z-10" />
-            <span className="absolute right-5 top-1/2 -translate-y-1/2 w-1.5 h-[1px] bg-emerald-400/30 z-10" />
+            <div className="relative z-10 hidden sm:flex items-center pr-3 text-[0.58rem] uppercase tracking-[0.24em] text-white/30 group-hover:text-emerald-300/70 transition-colors duration-300">
+              ready
+            </div>
           </motion.button>
 
           {/* Stacked Solid/Outline Creative Title */}
