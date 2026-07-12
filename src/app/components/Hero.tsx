@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { ChevronDown, FileText, ArrowUpRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -43,7 +43,7 @@ export function Hero() {
       {/* Mobile-only responsive desktop disclaimer badge */}
       {isMobile && (
         <div className="absolute top-6 left-1/2 -translate-y-1/2 -translate-x-1/2 z-20 w-[92%] max-w-[280px]">
-          <div 
+          <div
             onClick={() => {
               const viewportMeta = document.querySelector('meta[name="viewport"]');
               if (viewportMeta) {
@@ -153,119 +153,82 @@ export function Hero() {
       />
 
       {/* Main content with spotlight reading mask to dim particles directly behind typography */}
-      <div className="relative z-10 max-w-7xl mx-auto px-8 text-center cinematic-spotlight">
+      <div className="relative z-10 mx-auto w-full h-full max-w-7xl px-6 sm:px-8 lg:px-10 cinematic-spotlight flex flex-col justify-center">
         <motion.div
+          className="grid w-full grid-cols-1 gap-x-12 gap-y-6 text-left lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.9fr)] lg:grid-rows-[auto_auto_auto] lg:items-start"
           initial={{ opacity: 0, y: isMobile ? 30 : 15 }}
           animate={isLoaded ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.0, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Status indicator — Refined premium micro-glow status badge */}
-          <motion.button
-            onClick={() => {
-              const sections = document.querySelectorAll('section');
-              // Find the contact section by scrolling to the last section or by ID
-              const contactSec = document.getElementById('contact-section') || sections[sections.length - 1];
-              contactSec?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="inline-flex items-center gap-3 mb-7 cursor-pointer relative overflow-hidden rounded-lg border border-white/10 bg-[#07110c]/90 backdrop-blur-md shadow-[0_14px_28px_rgba(0,0,0,0.22)] transition-all duration-300 group hover:border-emerald-400/28 hover:bg-[#08140f]/95 hover:shadow-[0_18px_36px_rgba(0,0,0,0.28)]"
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 20 }}
-          >
-            <span className="absolute inset-y-0 left-0 w-[2px] bg-gradient-to-b from-emerald-300 via-emerald-400 to-transparent opacity-90" />
-            <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-            <div className="relative z-10 flex items-center gap-3 pl-3.5 pr-4 py-2.5">
-              <motion.div
-                className="relative flex h-3 w-3 items-center justify-center"
-                animate={{ opacity: [1, 0.35, 1], scale: [1, 0.92, 1] }}
-                transition={{ duration: 1.15, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <span className="absolute h-full w-full rounded-full bg-emerald-400/15" />
-                <span className="relative h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_0_3px_rgba(52,211,153,0.1)]" />
-              </motion.div>
-
-              <div className="flex flex-col items-start leading-none">
-                <span className="text-[0.53rem] uppercase tracking-[0.32em] text-white/38 group-hover:text-white/50 transition-colors duration-300">
-                  shell
-                </span>
-                <span className="mt-1 text-[0.68rem] sm:text-[0.72rem] font-semibold tracking-[0.14em] uppercase text-white/85 group-hover:text-white transition-colors duration-300">
-                  open for work
-                </span>
-              </div>
-            </div>
-
-            <div className="relative z-10 hidden sm:flex items-center pr-3 text-[0.58rem] uppercase tracking-[0.24em] text-white/30 group-hover:text-emerald-300/70 transition-colors duration-300">
-              ready
-            </div>
-          </motion.button>
-
-          {/* Stacked Solid/Outline Creative Title */}
           <motion.h1
-            className="mb-8 tracking-tight font-black flex flex-col items-center justify-center select-none"
-            initial={{ opacity: 0, y: isMobile ? 40 : 20 }}
+            className="lg:col-start-1 lg:row-start-1 select-none tracking-tight font-black leading-[0.82]"
+            initial={{ opacity: 0, y: isMobile ? 20 : 10 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <span
+              className="inline-block pr-8"
               style={{
-                fontSize: 'clamp(3rem, 11vw, 9.5rem)',
-                lineHeight: 0.85,
+                fontSize: 'clamp(4.6rem, 13.8vw, 12.65rem)',
                 background: 'linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #60a5fa 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                textShadow: '0 4px 40px rgba(0, 0, 0, 0.4)'
+                lineHeight: 0.86,
+                textShadow: '0 4px 40px rgba(0, 0, 0, 0.35)'
               }}
             >
               ARYAN
             </span>
             <span
-              className="text-outline-watermark mt-2"
+              className="text-outline-watermark inline-block pr-8 mt-2"
               style={{
-                fontSize: 'clamp(3rem, 11vw, 9.5rem)',
-                lineHeight: 0.85,
-                letterSpacing: '0.06em',
-                WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.25)',
+                fontSize: 'clamp(5.5rem, 16.5vw, 15.5rem)',
+                lineHeight: 0.86,
+                letterSpacing: '0.04em',
+                WebkitTextFillColor: 'transparent',
+                WebkitTextStroke: '2px rgba(255,255,255,0.4)'
               }}
             >
               THAKUR
             </span>
           </motion.h1>
 
-          {/* Roles — flowing inline text */}
-          <motion.p
-            className="mb-8 sm:mb-12 px-4 sm:px-0 text-center font-semibold"
-            style={{
-              fontSize: 'clamp(0.65rem, 1.5vw, 0.85rem)',
-              letterSpacing: '0.2em',
-              color: 'rgba(255, 255, 255, 0.6)'
-            }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            FULL STACK DEVELOPER{' '}
-            <span className="text-blue-400 mx-2 sm:mx-3 font-bold">—</span>{' '}
-            FRONTEND ENGINEER{' '}
-            <span className="text-purple-400 mx-2 sm:mx-3 font-bold">—</span>{' '}
-            CREATIVE TECHNOLOGIST
-          </motion.p>
-
-          {/* Tagline - High legibility contrast */}
-          <motion.p
-            className="max-w-3xl mx-auto text-zinc-100 leading-relaxed mb-8 sm:mb-12 px-4 sm:px-0 font-light"
-            style={{
-              fontSize: 'clamp(0.95rem, 1.8vw, 1.35rem)',
-              letterSpacing: '0.02em',
-              textShadow: '0 2px 20px rgba(3, 2, 18, 0.9)'
-            }}
-            initial={{ opacity: 0, y: isMobile ? 20 : 10 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.0, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Building immersive digital products, intelligent systems, and futuristic web experiences through modern engineering.
-          </motion.p>
+          <div className="lg:col-start-1 lg:row-start-2 flex flex-nowrap items-center justify-start gap-4 sm:gap-6 lg:gap-12 w-full mt-6 lg:mt-8 lg:pl-16 pr-0 lg:pr-8">
+            {['FULL STACK DEVELOPER', 'UI/UX DESIGNER', 'OPEN SOURCE CONTRIBUTOR'].map((item, index) => {
+              return (
+                <div key={item} className="flex items-center gap-4 sm:gap-6 lg:gap-12">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.96, filter: 'blur(5px)' }}
+                    animate={isLoaded ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : {}}
+                    transition={{ duration: 0.75, delay: 1.8 + index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ y: -3, scale: 1.02 }}
+                    className="relative group cursor-default font-black tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] text-white/70 hover:text-white uppercase text-[0.65rem] sm:text-[0.8rem] lg:text-[1rem] transition-colors duration-300 whitespace-nowrap"
+                    style={{ textShadow: '0 0 15px rgba(255,255,255,0)' }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.textShadow = '0 0 15px rgba(255,255,255,0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.textShadow = '0 0 15px rgba(255,255,255,0)';
+                    }}
+                  >
+                    {item}
+                    <span className="absolute -bottom-1.5 left-0 w-full h-[2px] bg-white scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                  </motion.div>
+                  
+                  {index < 2 && (
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={isLoaded ? { opacity: 1 } : {}}
+                      transition={{ duration: 0.5, delay: 2.1 }}
+                      className="text-white/30 text-[0.6rem] lg:text-[1rem]"
+                    >
+                      •
+                    </motion.span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </motion.div>
       </div>
 
@@ -287,7 +250,6 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Static Grid overlay for performance */}
       <motion.div
         className="absolute inset-0 opacity-[0.02]"
         style={{
