@@ -301,9 +301,7 @@ export function FeaturedProjects() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-4">
-                  <ProjectLink href={projects[0].link} />
-                </div>
+
               </div>
 
               {/* Interactive Browser Preview */}
@@ -363,9 +361,7 @@ export function FeaturedProjects() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-4">
-                  <ProjectLink href={projects[1].link} />
-                </div>
+
               </div>
 
               {/* Interactive Browser Preview */}
@@ -426,9 +422,7 @@ export function FeaturedProjects() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-4">
-                  <ProjectLink href={projects[2].link} />
-                </div>
+
               </div>
 
               {/* Interactive Browser Preview */}
@@ -489,9 +483,7 @@ export function FeaturedProjects() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-4">
-                  <ProjectLink href={projects[3].link} />
-                </div>
+
               </div>
 
               {/* Interactive Browser Preview */}
