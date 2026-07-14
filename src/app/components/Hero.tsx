@@ -167,29 +167,52 @@ export function Hero() {
             transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <span
-              className="inline-block pr-8"
+              className="inline-flex pr-8"
               style={{
                 fontSize: 'clamp(4.6rem, 13.8vw, 12.65rem)',
-                background: 'linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #60a5fa 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
                 lineHeight: 0.86,
                 textShadow: '0 4px 40px rgba(0, 0, 0, 0.35)'
               }}
             >
-              ARYAN
+              {"ARYAN".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  className="inline-block cursor-default"
+                  whileHover={{ y: -25, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  style={{
+                    background: 'linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #60a5fa 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </span>
             <span
-              className="text-outline-watermark inline-block pr-8 mt-2"
+              className="text-outline-watermark inline-flex pr-8 mt-2 pointer-events-auto"
               style={{
                 fontSize: 'clamp(5.5rem, 16.5vw, 15.5rem)',
                 lineHeight: 0.86,
                 letterSpacing: '0.04em',
-                WebkitTextFillColor: 'transparent',
-                WebkitTextStroke: '2px rgba(255,255,255,0.4)'
+                pointerEvents: 'auto'
               }}
             >
-              THAKUR
+              {"THAKUR".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  className="inline-block cursor-default"
+                  whileHover={{ y: -25, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  style={{
+                    WebkitTextFillColor: 'transparent',
+                    WebkitTextStroke: '2px rgba(255,255,255,0.4)'
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </span>
           </motion.h1>
 
