@@ -7,6 +7,25 @@ import { useRef, useState, useEffect } from 'react';
    ─────────────────────────────────────────────────────── */
 const projects = [
   {
+    title: 'PREMIUM CLIENT PORTFOLIO',
+    tagline: 'CUSTOM PROFESSIONAL WEB ARCHITECTURE',
+    description: 'Designed and developed a custom portfolio website for a client with a strong focus on premium UI, fluid animations, responsive layouts, and a modern visual identity. The project emphasizes performance, clean interactions, and a polished browsing experience while delivering a fully customized personal brand presence.',
+    tags: ['Next.js', 'React', 'Framer Motion', 'Tailwind CSS', 'Javascript'],
+    accent: '#38bdf8',
+    accentRgb: '58, 189, 248',
+    link: 'https://mudgal-portfolio.vercel.app/',
+    image: '/PremiumPortfolio_thumb.png',
+    highlights: [
+      'Custom UI/UX Design',
+      'Responsive Across All Devices',
+      'Premium Animations & Transitions',
+      'Performance Optimized',
+      'Modern Frontend Development',
+      'Clean Information Architecture',
+      'Production-Ready Deployment'
+    ]
+  },
+  {
     title: 'NAIN AUR NAQSH',
     tagline: 'LUXURY BRAND & DESIGN STUDIO',
     description: 'A luxury brand and creative web studio platform featuring kinetic typography reveals, interactive image reveal slides, and polished motion details.',
@@ -25,16 +44,6 @@ const projects = [
     accentRgb: '249, 115, 22',
     link: 'https://drive.google.com/file/d/1ijalBnEyO086epHgDg2v50sDJTjRiHA2/view?usp=sharing',
     image: '',
-  },
-  {
-    title: 'GOALFORGE',
-    tagline: 'PRODUCTIVITY OPERATING SYSTEM',
-    description: 'A developer-focused productivity workspace combining visual goal-tracking trackers, dynamic task velocity boards, and unified team roadmap databases.',
-    tags: ['React.js', 'TypeScript', 'Supabase', 'Framer Motion', 'Tailwind CSS'],
-    accent: '#3b82f6',
-    accentRgb: '59, 130, 246',
-    link: 'https://goalforge-seven.vercel.app/',
-    image: '/GoalForge_thumb.png',
   },
   {
     title: 'RENTIT',
@@ -211,7 +220,7 @@ export function FeaturedProjects() {
           <motion.div
             className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.16) 0%, transparent 60%)',
+              background: 'radial-gradient(circle, rgba(58, 189, 248, 0.16) 0%, transparent 60%)',
               x: mousePos.x * 1.5,
               y: mousePos.y * 1.5,
               opacity: opacity1
@@ -220,7 +229,7 @@ export function FeaturedProjects() {
           <motion.div
             className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(249, 115, 22, 0.16) 0%, transparent 60%)',
+              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.16) 0%, transparent 60%)',
               x: mousePos.x * 1.5,
               y: mousePos.y * 1.5,
               opacity: opacity2
@@ -229,7 +238,7 @@ export function FeaturedProjects() {
           <motion.div
             className="absolute inset-0"
             style={{
-              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.16) 0%, transparent 60%)',
+              background: 'radial-gradient(circle, rgba(249, 115, 22, 0.16) 0%, transparent 60%)',
               x: mousePos.x * 1.5,
               y: mousePos.y * 1.5,
               opacity: opacity3
@@ -257,7 +266,82 @@ export function FeaturedProjects() {
         >
 
           {/* ═══════════════════════════════════════════════════════
-             SCENE 1: NAIN AUR NAQSH (Luxury Editorial World)
+             SCENE 1: PREMIUM CLIENT PORTFOLIO (Real Client Work)
+             ═══════════════════════════════════════════════════════ */}
+          <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20 border-r border-white/[0.02]"}>
+            {!isMobile && (
+              <motion.div
+                style={{ x: textX, y: mousePos.y * -0.5 }}
+                className="absolute left-0 text-[18rem] font-black select-none pointer-events-none text-outline-watermark opacity-[0.07] tracking-widest leading-none z-0 whitespace-nowrap"
+              >
+                CLIENT PORTFOLIO
+              </motion.div>
+            )}
+
+            <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Content Panel - Styled for extra visual prominence */}
+              <div className="lg:col-span-5 flex flex-col gap-6">
+                <span className="mono-metadata text-sky-400 font-extrabold tracking-widest text-[0.8rem]">
+                  [ 01 // FEATURED_CLIENT_WORK ]
+                </span>
+                <h3 className="font-black leading-none" style={{ fontSize: 'clamp(2.5rem, 6vw, 6.5rem)' }}>
+                  <span style={{
+                    background: '#fcfcfc',
+                    backgroundImage: 'linear-gradient(90deg, rgba(252, 252, 252, 1) 0%, rgba(186, 230, 253, 1) 33%, rgba(125, 211, 252, 1) 58%, rgba(56, 189, 248, 1) 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    display: 'inline-block'
+                  }}>
+                    PREMIUM
+                  </span>
+                  <br />
+                  <span className="text-outline-watermark" style={{ WebkitTextStroke: '2px #38bdf8' }}>PORTFOLIO</span>
+                </h3>
+                <span className="text-sky-300 font-mono text-[0.72rem] tracking-wider font-bold">
+                  {projects[0].tagline}
+                </span>
+                <p className="text-zinc-300 leading-relaxed font-light text-[0.95rem] md:text-[1.05rem] max-w-xl">
+                  {projects[0].description}
+                </p>
+
+                {/* Highlights List - specific visual prominence element */}
+                <div className="flex flex-col gap-2.5 mt-2 bg-white/[0.02] border border-white/5 rounded-xl p-4 backdrop-blur-[2px]">
+                  <span className="text-[0.7rem] uppercase tracking-widest text-sky-400 font-bold font-mono">
+                    Project Highlights
+                  </span>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-zinc-400 font-light">
+                    {projects[0].highlights?.map((highlight) => (
+                      <li key={highlight} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400/80" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {projects[0].tags.map(tag => (
+                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-sky-400 bg-sky-500/10 py-1 px-3.5 rounded-full border border-sky-500/20">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Interactive Browser Preview - styled larger/wider */}
+              <div className="lg:col-span-7 flex justify-center items-center w-full">
+                <BrowserPreview
+                  src={projects[0].image}
+                  href={projects[0].link}
+                  title={projects[0].title}
+                  accentRgb={projects[0].accentRgb}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* ═══════════════════════════════════════════════════════
+             SCENE 2: NAIN AUR NAQSH (Luxury Editorial World)
              ═══════════════════════════════════════════════════════ */}
           <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20 border-r border-white/[0.02]"}>
             {!isMobile && (
@@ -273,7 +357,7 @@ export function FeaturedProjects() {
               {/* Content Panel */}
               <div className="lg:col-span-6 flex flex-col gap-6">
                 <span className="mono-metadata text-purple-400 font-extrabold tracking-widest text-[0.8rem]">
-                  [ 01 // VISUAL_CORE ]
+                  [ 02 // VISUAL_CORE ]
                 </span>
                 <h3 className="font-black leading-none" style={{ fontSize: 'clamp(2.5rem, 6vw, 6.5rem)' }}>
                   <span style={{
@@ -289,66 +373,6 @@ export function FeaturedProjects() {
                   <span className="text-outline-watermark" style={{ WebkitTextStroke: '2px #a855f7' }}>NAQSH</span>
                 </h3>
                 <span className="text-purple-300 font-mono text-[0.72rem] tracking-wider font-bold">
-                  {projects[0].tagline}
-                </span>
-                <p className="text-zinc-300 leading-relaxed font-light text-[0.95rem] md:text-[1.1rem] max-w-xl">
-                  {projects[0].description}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {projects[0].tags.map(tag => (
-                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-purple-400 bg-purple-500/10 py-1 px-3.5 rounded-full border border-purple-500/20">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-              </div>
-
-              {/* Interactive Browser Preview */}
-              <div className="lg:col-span-6 flex justify-center items-center w-full">
-                <BrowserPreview
-                  src={projects[0].image}
-                  href={projects[0].link}
-                  title={projects[0].title}
-                  accentRgb={projects[0].accentRgb}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* ═══════════════════════════════════════════════════════
-             SCENE 2: GESTURE CONTROLLED (AI Computer Vision World)
-             ═══════════════════════════════════════════════════════ */}
-          <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20 border-r border-white/[0.02]"}>
-            {!isMobile && (
-              <motion.div
-                style={{ x: textX, y: mousePos.y * -0.5 }}
-                className="absolute left-0 text-[18rem] font-black select-none pointer-events-none text-outline-watermark opacity-[0.07] tracking-widest leading-none z-0 whitespace-nowrap"
-              >
-                GESTURE CONTROL
-              </motion.div>
-            )}
-
-            <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Content Panel */}
-              <div className="lg:col-span-6 flex flex-col gap-6">
-                <span className="mono-metadata text-orange-400 font-extrabold tracking-widest text-[0.8rem]">
-                  [ 02 // AI_CV_SYSTEMS ]
-                </span>
-                <h3 className="font-black leading-none" style={{ fontSize: 'clamp(2.5rem, 6vw, 6.5rem)' }}>
-                  <span style={{
-                    background: '#fcfcfc',
-                    backgroundImage: 'linear-gradient(90deg,rgba(252, 252, 252, 1) 0%, rgba(251, 207, 177, 1) 35%, rgba(250, 158, 95, 1) 71%, rgba(249, 115, 22, 1) 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    display: 'inline-block'
-                  }}>
-                    GESTURE
-                  </span>
-                  <br />
-                  <span className="text-outline-watermark" style={{ WebkitTextStroke: '2px #f97316' }}>CONTROL</span>
-                </h3>
-                <span className="text-orange-300 font-mono text-[0.72rem] tracking-wider font-bold">
                   {projects[1].tagline}
                 </span>
                 <p className="text-zinc-300 leading-relaxed font-light text-[0.95rem] md:text-[1.1rem] max-w-xl">
@@ -356,7 +380,7 @@ export function FeaturedProjects() {
                 </p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {projects[1].tags.map(tag => (
-                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-orange-400 bg-orange-500/10 py-1 px-3.5 rounded-full border border-orange-500/20">
+                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-purple-400 bg-purple-500/10 py-1 px-3.5 rounded-full border border-purple-500/20">
                       {tag}
                     </span>
                   ))}
@@ -377,39 +401,38 @@ export function FeaturedProjects() {
           </div>
 
           {/* ═══════════════════════════════════════════════════════
-             SCENE 3: GOALFORGE (Cyberpunk Productivity World)
+             SCENE 3: GESTURE CONTROLLED (AI Computer Vision World)
              ═══════════════════════════════════════════════════════ */}
           <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20 border-r border-white/[0.02]"}>
-            {/* Massive background sticky parallax typography */}
             {!isMobile && (
               <motion.div
                 style={{ x: textX, y: mousePos.y * -0.5 }}
                 className="absolute left-0 text-[18rem] font-black select-none pointer-events-none text-outline-watermark opacity-[0.07] tracking-widest leading-none z-0 whitespace-nowrap"
               >
-                GOALFORGE OS
+                GESTURE CONTROL
               </motion.div>
             )}
 
             <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               {/* Content Panel */}
               <div className="lg:col-span-6 flex flex-col gap-6">
-                <span className="mono-metadata text-blue-400 font-extrabold tracking-widest text-[0.8rem]">
-                  [ 03 // SPRINT_ENGINE ]
+                <span className="mono-metadata text-orange-400 font-extrabold tracking-widest text-[0.8rem]">
+                  [ 03 // AI_CV_SYSTEMS ]
                 </span>
                 <h3 className="font-black leading-none" style={{ fontSize: 'clamp(2.5rem, 6vw, 6.5rem)' }}>
                   <span style={{
                     background: '#fcfcfc',
-                    backgroundImage: 'linear-gradient(90deg, rgba(252, 252, 252, 1) 0%, rgba(165, 197, 249, 1) 35%, rgba(122, 170, 248, 1) 76%, rgba(59, 130, 246, 1) 100%)',
+                    backgroundImage: 'linear-gradient(90deg,rgba(252, 252, 252, 1) 0%, rgba(251, 207, 177, 1) 35%, rgba(250, 158, 95, 1) 71%, rgba(249, 115, 22, 1) 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     display: 'inline-block'
                   }}>
-                    GOAL
+                    GESTURE
                   </span>
                   <br />
-                  <span className="text-outline-watermark" style={{ WebkitTextStroke: '2px #3b82f6' }}>FORGE</span>
+                  <span className="text-outline-watermark" style={{ WebkitTextStroke: '2px #f97316' }}>CONTROL</span>
                 </h3>
-                <span className="text-blue-300 font-mono text-[0.72rem] tracking-wider font-bold">
+                <span className="text-orange-300 font-mono text-[0.72rem] tracking-wider font-bold">
                   {projects[2].tagline}
                 </span>
                 <p className="text-zinc-300 leading-relaxed font-light text-[0.95rem] md:text-[1.1rem] max-w-xl">
@@ -417,7 +440,7 @@ export function FeaturedProjects() {
                 </p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {projects[2].tags.map(tag => (
-                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-blue-400 bg-blue-500/10 py-1 px-3.5 rounded-full border border-blue-500/20">
+                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-orange-400 bg-orange-500/10 py-1 px-3.5 rounded-full border border-orange-500/20">
                       {tag}
                     </span>
                   ))}
@@ -432,7 +455,6 @@ export function FeaturedProjects() {
                   href={projects[2].link}
                   title={projects[2].title}
                   accentRgb={projects[2].accentRgb}
-                  objectLeft
                 />
               </div>
             </div>
