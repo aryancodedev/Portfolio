@@ -119,7 +119,7 @@ export function Skills() {
               <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-12 px-4 sm:px-8">
                 
                 {/* Monospace Code + Category Name Left Panel */}
-                <div className="shrink-0 lg:w-[260px] xl:w-[300px] flex flex-col gap-1 z-10 bg-[#030212]/80 backdrop-blur-[2px] pr-4">
+                <div className="shrink-0 lg:w-[260px] xl:w-[300px] flex flex-col gap-1 z-10 bg-black/80 backdrop-blur-[2px] pr-4">
                   <span className="mono-metadata text-zinc-500 font-medium block">
                     [ LAYER_0{catIndex + 1} // {category.category.toUpperCase()}_ENGINE ]
                   </span>
@@ -138,8 +138,8 @@ export function Skills() {
                 {/* Skills Infinite Scrolling Marquee Track */}
                 <div className="flex-1 overflow-hidden relative py-2 select-none">
                   {/* Vignette fade bounds on sides */}
-                  <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#030212] to-transparent z-10 pointer-events-none" />
-                  <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#030212] to-transparent z-10 pointer-events-none" />
+                  <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+                  <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
                   
                   <div className={`flex gap-12 whitespace-nowrap ${catIndex % 2 === 0 ? 'animate-marquee-left' : 'animate-marquee-right'}`}>
                     {/* Render thrice to guarantee gapless scrolling on ultra-wide screens */}

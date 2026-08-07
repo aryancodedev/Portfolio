@@ -6,7 +6,6 @@ import { About } from './components/About';
 import { Skills } from './components/Skills';
 import { Contact } from './components/Contact';
 import { FloatingNav } from './components/FloatingNav';
-import { ScrollProgress } from './components/ScrollProgress';
 import { GridDistortion } from './components/GridDistortion';
 import { VantaGlobeBackground } from './components/VantaGlobeBackground';
 
@@ -33,16 +32,13 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#030212] text-white">
+    <div className="relative min-h-screen bg-black text-white">
       {/* Loading sequence */}
       {isLoading && <LoadingSequence onComplete={handleLoadingComplete} />}
 
       {/* Main content */}
       {showContent && (
         <>
-          {/* Scroll progress bar */}
-          <ScrollProgress />
-
           {/* Background animation */}
           <VantaGlobeBackground />
 

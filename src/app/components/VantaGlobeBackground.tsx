@@ -50,7 +50,7 @@ export function VantaGlobeBackground() {
           scaleMobile: 1.2, // Boosted slightly for better mobile visibility
           color: 0x60a5fa,
           color2: 0xa855f7,
-          backgroundColor: 0x030212,
+          backgroundColor: 0x000000,
         });
 
         const effect = effectRef.current as any;
