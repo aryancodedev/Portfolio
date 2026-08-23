@@ -45,16 +45,6 @@ const projects = [
     link: 'https://drive.google.com/file/d/1ijalBnEyO086epHgDg2v50sDJTjRiHA2/view?usp=sharing',
     image: '',
   },
-  {
-    title: 'RENTIT',
-    tagline: 'RESPONSIVE REAL-ESTATE PLATFORM',
-    description: 'A responsive real-estate listing search engine designed for property exploration, structured listing browsing, pricing trackers, and clean maps listings.',
-    tags: ['React.js', 'JavaScript', 'Tailwind CSS', 'MongoDB', 'Express.js'],
-    accent: '#10b981',
-    accentRgb: '16, 185, 129',
-    link: 'https://rent-it-fit.vercel.app/',
-    image: '/RentIt_thumb.png',
-  },
 ];
 
 /* ─────────────────────────────────────────────────────── 
@@ -187,32 +177,31 @@ export function FeaturedProjects() {
     };
   }, []);
 
-  // Set up vertical scroll tracking across the 400vh range
+  // Set up vertical scroll tracking across the 300vh range
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Smooth out X translations with highly responsive, low-mass spring physics (instant reaction, zero input lag, velvet smooth notches)
-  const xTranslationRaw = useTransform(scrollYProgress, [0, 1], ['0%', '-75%']);
+  // Smooth out X translations with highly responsive, low-mass spring physics
+  const xTranslationRaw = useTransform(scrollYProgress, [0, 1], ['0%', '-66.66%']);
   const x = useSpring(xTranslationRaw, { stiffness: 140, damping: 28, mass: 0.25 });
 
   // Pinned Title text parallax scaling
-  const textXRaw = useTransform(scrollYProgress, [0, 1], ['5%', '-45%']);
+  const textXRaw = useTransform(scrollYProgress, [0, 1], ['5%', '-30%']);
   const textX = useSpring(textXRaw, { stiffness: 120, damping: 26 });
 
   // GPU-Accelerated static color overlays with opacity cross-fading (zero browser repaints at 60fps)
-  const opacity1 = useTransform(scrollYProgress, [0, 0.33], [1, 0]);
-  const opacity2 = useTransform(scrollYProgress, [0, 0.33, 0.66], [0, 1, 0]);
-  const opacity3 = useTransform(scrollYProgress, [0.33, 0.66, 1], [0, 1, 0]);
-  const opacity4 = useTransform(scrollYProgress, [0.66, 1], [0, 1]);
+  const opacity1 = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const opacity2 = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const opacity3 = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
 
   return (
     <section
       ref={containerRef}
       id="projects-section"
       className="relative bg-transparent"
-      style={{ height: isMobile ? 'auto' : '400vh' }}
+      style={{ height: isMobile ? 'auto' : '300vh' }}
     >
       {/* Volumetric GPU-Composited background ambient pointer lights (follows mouse coords on desktop) */}
       {!isMobile && (
@@ -244,15 +233,6 @@ export function FeaturedProjects() {
               opacity: opacity3
             }}
           />
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, transparent 60%)',
-              x: mousePos.x * 1.5,
-              y: mousePos.y * 1.5,
-              opacity: opacity4
-            }}
-          />
         </div>
       )}
 
@@ -262,7 +242,7 @@ export function FeaturedProjects() {
         {/* Dynamic sliding track promoted to dedicated GPU compositor layer */}
         <motion.div
           style={isMobile ? {} : { x }}
-          className={isMobile ? "flex flex-col gap-24" : "flex h-full w-[400vw] flex-row gpu-accelerated"}
+          className={isMobile ? "flex flex-col gap-24" : "flex h-full w-[300vw] flex-row gpu-accelerated"}
         >
 
           {/* ═══════════════════════════════════════════════════════
@@ -403,7 +383,7 @@ export function FeaturedProjects() {
           {/* ═══════════════════════════════════════════════════════
              SCENE 3: GESTURE CONTROLLED (AI Computer Vision World)
              ═══════════════════════════════════════════════════════ */}
-          <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20 border-r border-white/[0.02]"}>
+          <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20"}>
             {!isMobile && (
               <motion.div
                 style={{ x: textX, y: mousePos.y * -0.5 }}
@@ -455,66 +435,6 @@ export function FeaturedProjects() {
                   href={projects[2].link}
                   title={projects[2].title}
                   accentRgb={projects[2].accentRgb}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* ═══════════════════════════════════════════════════════
-             SCENE 4: RENTIT (Luxury Architectural Space World)
-             ═══════════════════════════════════════════════════════ */}
-          <div className={isMobile ? "w-full" : "w-screen h-full flex-shrink-0 flex items-center justify-center relative overflow-hidden px-8 lg:px-20"}>
-            {!isMobile && (
-              <motion.div
-                style={{ x: textX, y: mousePos.y * -0.5 }}
-                className="absolute left-0 text-[18rem] font-black select-none pointer-events-none text-outline-watermark opacity-[0.07] tracking-widest leading-none z-0 whitespace-nowrap"
-              >
-                RENTIT PLATFORM
-              </motion.div>
-            )}
-
-            <div className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              {/* Content Panel */}
-              <div className="lg:col-span-6 flex flex-col gap-6">
-                <span className="mono-metadata text-emerald-400 font-extrabold tracking-widest text-[0.8rem]">
-                  [ 04 // GEOGRAPHIC_PROPERTIES ]
-                </span>
-                <h3 className="font-black leading-none" style={{ fontSize: 'clamp(2.5rem, 6vw, 6.5rem)' }}>
-                  <span style={{
-                    background: '#fcfcfc',
-                    backgroundImage: 'linear-gradient(90deg, rgba(252, 252, 252, 1) 0%, rgba(112, 255, 207, 1) 35%, rgba(79, 247, 191, 1) 86%, rgba(11, 224, 153, 1) 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    display: 'inline-block'
-                  }}>
-                    RENT
-                  </span>
-                  <br />
-                  <span className="text-outline-watermark" style={{ WebkitTextStroke: '2px #10b981' }}>IT</span>
-                </h3>
-                <span className="text-emerald-300 font-mono text-[0.72rem] tracking-wider font-bold">
-                  {projects[3].tagline}
-                </span>
-                <p className="text-zinc-300 leading-relaxed font-light text-[0.95rem] md:text-[1.1rem] max-w-xl">
-                  {projects[3].description}
-                </p>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {projects[3].tags.map(tag => (
-                    <span key={tag} className="text-[0.68rem] font-mono font-bold text-emerald-400 bg-emerald-500/10 py-1 px-3.5 rounded-full border border-emerald-500/20">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-              </div>
-
-              {/* Interactive Browser Preview */}
-              <div className="lg:col-span-6 flex justify-center items-center w-full">
-                <BrowserPreview
-                  src={projects[3].image}
-                  href={projects[3].link}
-                  title={projects[3].title}
-                  accentRgb={projects[3].accentRgb}
                 />
               </div>
             </div>
